@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  resources :event_charities
+  resources :cause_charities
+  resources :pledges
+  resources :events
+  resources :causes
+  resources :charities
+  resources :donors
+  resources :hosts
+  resources :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

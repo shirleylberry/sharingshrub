@@ -1,0 +1,2 @@
+class CauseCharitiesController < ApplicationController
+end
