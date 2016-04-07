@@ -11,11 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407211858) do
+ActiveRecord::Schema.define(version: 20160407225042) do
 
   create_table "cause_charities", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "cause_id"
+    t.integer  "charity_id"
   end
 
   create_table "causes", force: :cascade do |t|
@@ -45,13 +47,13 @@ ActiveRecord::Schema.define(version: 20160407211858) do
 
   create_table "events", force: :cascade do |t|
     t.string   "title"
-    t.date     "event_start_date"
-    t.date     "event_end_date"
-    t.time     "event_start_time"
-    t.time     "event_end_time"
     t.integer  "host_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.datetime "event_start"
+    t.datetime "event_end"
+    t.boolean  "funded"
+    t.float    "goal"
   end
 
   create_table "hosts", force: :cascade do |t|
@@ -64,9 +66,9 @@ ActiveRecord::Schema.define(version: 20160407211858) do
     t.integer  "event_id"
     t.integer  "donor_id"
     t.integer  "amount"
-    t.boolean  "pending"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "status"
   end
 
   create_table "users", force: :cascade do |t|

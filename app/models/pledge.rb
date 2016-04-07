@@ -6,9 +6,9 @@
 #  event_id   :integer
 #  donor_id   :integer
 #  amount     :integer
-#  pending    :boolean
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  status     :string
 #
 
 class Pledge < ActiveRecord::Base

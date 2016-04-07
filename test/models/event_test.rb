@@ -2,15 +2,15 @@
 #
 # Table name: events
 #
-#  id               :integer          not null, primary key
-#  title            :string
-#  event_start_date :date
-#  event_end_date   :date
-#  event_start_time :time
-#  event_end_time   :time
-#  host_id          :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  id          :integer          not null, primary key
+#  title       :string
+#  host_id     :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  event_start :datetime
+#  event_end   :datetime
+#  funded      :boolean
+#  goal        :float
 #
 
 require 'test_helper'
