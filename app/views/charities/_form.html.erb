@@ -1,0 +1,6 @@
+<%= form_for charity do |f| %>
+  <p><%= f.label :name %>
+  <%= f.text_field :name %></p>
+  <p><%= f.collection_check_boxes :cause_ids, Cause.all, :id, :name, style: 'display: block' %></p>
+  <%= f.submit "Create Charity" %>
+<% end %>

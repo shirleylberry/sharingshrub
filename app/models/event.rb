@@ -14,6 +14,11 @@
 #
 
 class Event < ActiveRecord::Base
+  include MultiparameterDateTime
+
+  multiparameter_date_time :event_start
+  multiparameter_date_time :event_end
+  
   belongs_to :host
   has_many :event_charities
   has_many :charities, through: :event_charities
