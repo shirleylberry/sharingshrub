@@ -40,13 +40,19 @@ Charity.create(name: "Natural Resources Defense Council")
 Charity.create(name: "Doctors Without Borders, USA")
 
 5.times do 
-  i= rand(1..12) 
-  j= rand(1..30)
-  k= rand(13..24)
-  event = Event.create(title: Faker::Book.title,event_start: Time.new(2016, i, j, i), 
-                       event_end: Time.new(2016, i, j, k), host: Host.all.sample,
-                       funded: false, goal: rand(10..1000))  
-  EventCharity.create(event: event, charity: Charity.all.sample) 
+  i = rand(1..12) 
+  j = rand(1..30)
+  k = rand(13..24)
+  event = Event.new(title: Faker::Book.title,
+                    event_start: Time.new(2016, i, j, i), 
+                    event_end: Time.new(2016, i, j, k), 
+                    host: Host.all.sample,
+                    funded: false, 
+                    goal: rand(10..1000)
+                  );  
+  event.charities.push(Charity.all.sample)
+  event.save
+  # EventCharity.create(event: event, charity: Charity.all.sample) 
 end 
 
 30.times do 
