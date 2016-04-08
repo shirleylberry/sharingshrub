@@ -2,3 +2,10 @@
   Sharing Shrub
 </h1>
 
+<h3>Check out our events!</h3>
+<ul>
+    <% @events.each do |event| %>
+        <li><%= link_to event.title, event_path(event) %></li>
+    <% end %>
+</ul>
+

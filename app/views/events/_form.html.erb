@@ -3,10 +3,9 @@
   <%= f.text_field :title %>
   <%= f.label :charity %>
   <p>Select up to three charities</p>
-  <%= f.collection_check_boxes :charities, Charity.all, :id, :name %>
+  <%= f.collection_check_boxes :charity_ids, Charity.all, :id, :name %>
   <p><%= f.label :goal %>
   <%= f.number_field :goal, placeholder: "$10,000" %></p>
-
   <p><%= label_tag :event_start, "Start Date" %>
   <%= f.date_field :event_start_date_part %>
   <%= label_tag :event_start, "Start Time" %>

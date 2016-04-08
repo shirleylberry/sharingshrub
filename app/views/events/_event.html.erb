@@ -1,18 +1,24 @@
-Title: <%= event.title %>
-Goal: <%= event.goal %>
-
+<h2>Title: <%= event.title %></h2>
+<h3>Goal: <%= event.goal %></h3>
 <!-- 
 ex. Current : _____  ( 70% achieved! )| $400 more to Go!
     Doners
 
 Donate Button!
  -->
+<label>Charities:</label>
 
-
+<ul>
 <% event.charities.each do |charity| %>
-Charity Name: <%= charity.name %>
+    <%= link_to charity_path(charity) do %>
+     <li>Charity Name: <%= charity.name %></li>
+    <% end %>
 <% end %>
+</ul>
 
-Event Start: <%= event.event_start %>
-Event End: <%= event.event_end %>
+<h3>Event Start: <%= event.event_start %></h3>
+<h3>Event End: <%= event.event_end %></h3>
+
+<%= link_to "Pledge", new_event_pledge_path(event) %>
+
 

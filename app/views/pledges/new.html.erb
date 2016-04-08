@@ -1,0 +1,7 @@
+<h3>Pledge to the <%= @event.title %> event!</h3>
+
+<%= form_for @pledge, url: event_pledges_path(@event) do |f| %>
+    <p><%= f.label :amount, "How big is your heart?" %></p>
+    <div>$<%= f.number_field :amount, placeholder: "50" %></div>
+    <p><%= f.submit "Pledge" %></p>
+<% end %>

@@ -1,13 +1,18 @@
 Rails.application.routes.draw do
+  get "log_out" => "sessions#destroy", :as => "log_out"
+  get "log_in" => "sessions#new", :as => "log_in"
+  get "sign_up" => "users#new", :as => "sign_up"
+  resources :users
+  resources :sessions
+
   # resources :event_charities
   # resources :cause_charities
-  resources :pledges
-  resources :events
   resources :causes
   resources :charities
-  resources :donors
-  resources :hosts
-  resources :users
+
+  resources :events do
+    resources :pledges
+  end
 
   root 'pages#home'
 
