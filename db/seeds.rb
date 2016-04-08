@@ -46,7 +46,7 @@ Charity.create(name: "Doctors Without Borders, USA")
   event = Event.create(title: Faker::Book.title,event_start: Time.new(2016, i, j, i), 
                        event_end: Time.new(2016, i, j, k), host: Host.all.sample,
                        funded: false, goal: rand(10..1000))  
-  EventCharity.create(event_id: event.id, charity_id: Charity.all.sample) 
+  EventCharity.create(event: event, charity: Charity.all.sample) 
 end 
 
 30.times do 

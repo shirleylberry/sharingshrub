@@ -14,4 +14,5 @@
 class Pledge < ActiveRecord::Base
   belongs_to :donor
   belongs_to :event
+  has_many :charities, through: :event
 end
