@@ -25,9 +25,8 @@ class Event < ActiveRecord::Base
   has_many :pledges
   has_many :donors, through: :pledges
 
-  validates :host, presence: true
-  validates :charities, length: {in: 1..3}
-
+  # validates :host, presence: true
+  # validates :charities, length: {in: 1..3}
   validate :start_time_before_end_time
 
   def start_time_before_end_time
@@ -35,4 +34,5 @@ class Event < ActiveRecord::Base
       self.errors.add(:event_start, "must be before event end")
     end
   end
+
 end

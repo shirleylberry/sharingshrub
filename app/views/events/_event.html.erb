@@ -1,0 +1,18 @@
+Title: <%= event.title %>
+Goal: <%= event.goal %>
+
+<!-- 
+ex. Current : _____  ( 70% achieved! )| $400 more to Go!
+    Doners
+
+Donate Button!
+ -->
+
+
+<% event.charities.each do |charity| %>
+Charity Name: <%= charity.name %>
+<% end %>
+
+Event Start: <%= event.event_start %>
+Event End: <%= event.event_end %>
+
