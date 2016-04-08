@@ -17,31 +17,57 @@ require 'rails_helper'
 
 describe Event do
   describe 'validations' do
-
-    let!(:user) { User.create(name: "Nami") }
-    let!(:host) { Host.create(user: user) }
-    let!(:charity) { Charity.create(name: "For the Kids") }
-    let!(:valid_event) { Event.new(title: 'A Great, valid event' ) }
-    let!(:invalid_event) { Event.new(title: 'A terrible, invalid event' ) }
+    before(:each) do   
     
-    before do   
-      valid_event.event_start = Time.new(2016, 8, 12, 10)
-      valid_event.event_end = Time.new(2016, 8, 12, 14)
 
-      invalid_event.event_start = Time.new(2016, 10, 11, 16)
-      invalid_event.event_end = Time.new(2016, 10, 11, 10)
-      valid_event.charities.push(charity)
-      valid_event.host = host
+    @shirley = User.create(name: "Shirley")
+    @jeff = User.create(name: "Jeff")
+    @ian = User.create(name: "Ian")
+    @bob = User.create(name: "Bob")
+    @ada  = User.create(name: "Ada")
+
+    @event1 = Event.create(title: "ShoeNami")
+    @event2 = Event.create(title: "HurricaneSeb")
+  
+    @charity1 = Charity.create(name: "For the Kids")
+    @charity2 = Charity.create(name: "A")
+    @charity3 = Charity.create(name: "B")
+    @charity4 = Charity.create(name: "C")
+    @charity5 = Charity.create(name: "F")
+     
+     
+
+
+     let!(:valid_event) { Event.new(title: 'A Great, valid event' ) }
+     let!(:invalid_event) { Event.new(title: 'A terrible, invalid event' ) }
+   
     end
 
-    it 'is valid if it starts before it ends' do 
+    it 'is valid if it starts before it ends' do
+      valid_event.event_start = Time.new(2016, 8, 12, 10)
+      valid_event.event_end = Time.new(2016, 8, 12, 14) 
+
       expect(valid_event.save).to eq(true)
     end
 
-    it 'is invalid if it starts before it ends' do 
+    it 'is invalid if it starts before it ends' do
+      invalid_event.event_start = Time.new(2016, 10, 11, 16)
+      invalid_event.event_end = Time.new(2016, 10, 11, 10)
+
       expect(invalid_event.save).to eq(false)
     end
 
+    
+    it 'has at least one charity' do 
+       expect(@event1.save).to eq(false)
+    end 
+
+    it 'has less than three charities' do 
+       @event2.charities.push(@charity1, @charity2, @charity3, @charity4)
+       
+       expect(@event2.save).to eq(false) 
+
+    end 
     # it 'has a description' do
     #   expect(listing.description).to eq("Whole house for rent on mountain. Many bedrooms.")
     # end
