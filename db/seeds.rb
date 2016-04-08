@@ -54,7 +54,7 @@ end
 end 
 
 10.times do 
-  CauseCharity.create(cause: Cause.all.sample , charity_id: Charity.all.sample)
+  CauseCharity.create(cause: Cause.all.sample , charity: Charity.all.sample)
 end 
 
 
