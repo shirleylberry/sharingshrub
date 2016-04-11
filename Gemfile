@@ -36,6 +36,8 @@ gem "factory_girl_rails", "~> 4.0"
 
 gem 'multiparameter_date_time'
 
+gem 'devise'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-byebug'

@@ -1,0 +1,10 @@
+<div>
+  <%= render 'cause', cause: @cause %>
+  <% @cause.upcoming_events.each do |event| %>
+    <%= link_to event_path(event) do %>
+      <p><%= event.title %></p>
+      <p><%= event.event_start %></p> 
+    <% end %>
+  <% end %> 
+</div>
+

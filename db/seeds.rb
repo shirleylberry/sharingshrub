@@ -17,14 +17,17 @@ ActiveRecord::Base.connection.tables.each do |table|
 end
 
 20.times do
-  User.create(name: Faker::Name.name)
   Cause.create(name: Faker::Lorem.sentence)
+
+end
+
+1000.times do
+  User.create(name: Faker::Name.name)
 end 
 
 i=0
-10.times do 
+100.times do 
   Host.create(user: User.all[i])
-  Donor.create(user: User.all[i+10])
   i+=1
 end
 
@@ -39,7 +42,7 @@ Charity.create(name: "United States Fund for UNICEF")
 Charity.create(name: "Natural Resources Defense Council") 
 Charity.create(name: "Doctors Without Borders, USA")
 
-5.times do 
+250.times do 
   i = rand(1..12) 
   j = rand(1..30)
   k = rand(13..24)
@@ -55,12 +58,15 @@ Charity.create(name: "Doctors Without Borders, USA")
   # EventCharity.create(event: event, charity: Charity.all.sample) 
 end 
 
-30.times do 
-  Pledge.create(event: Event.all.sample, donor: Donor.all.sample, amount: rand(5..100), status: "pending")
+1000.times do 
+  Pledge.create(event: Event.all.sample, donor: Donor.create(user: User.all.sample), amount: rand(5..100), status: "pending")
 end 
 
-10.times do 
-  CauseCharity.create(cause: Cause.all.sample , charity: Charity.all.sample)
+Charity.all.each do |charity|
+  3.times do 
+  CauseCharity.create(cause: Cause.all.sample , charity: charity)
+  end 
 end 
+
 
 

@@ -11,4 +11,10 @@
 class Cause < ActiveRecord::Base
   has_many :cause_charities
   has_many :charities, through: :cause_charities
+  has_many :events, through: :charities 
+
+  def upcoming_events
+    self.events.where("events.event_start > ?", Time.now)
+  end 
+
 end

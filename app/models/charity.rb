@@ -14,3 +14,4 @@ class Charity < ActiveRecord::Base
   has_many :event_charities
   has_many :events, through: :event_charities
 end
+
