@@ -1,5 +1,7 @@
 class CausesController < ApplicationController
 
+ before_action :authenticate_admin!, only: [:new, :create]
+
  def new
   @cause = Cause.new
  end 

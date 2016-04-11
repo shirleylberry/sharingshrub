@@ -9,4 +9,8 @@ class User < ActiveRecord::Base
   has_many :events, through: :host
   has_many :pledges, through: :donor 
 
+  def is_host(event)
+    self.id == event.host.user.id
+  end
+
 end

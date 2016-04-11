@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
 
+  skip_before_action :authenticate_user!, only: [:show]
 
   def new
     @event = Event.new
@@ -10,7 +11,6 @@ class EventsController < ApplicationController
     @host = Host.find_or_create_by(user: current_user)
     @event.host = @host
    if  @event.save
-    binding.pry
      redirect_to @event
    else
       render 'new' 
@@ -20,6 +20,10 @@ class EventsController < ApplicationController
   def show
     set_event
   end 
+
+  def edit
+    set_event
+  end
 
   private
 
