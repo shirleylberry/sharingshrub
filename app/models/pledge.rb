@@ -15,4 +15,9 @@ class Pledge < ActiveRecord::Base
   belongs_to :donor
   belongs_to :event
   has_many :charities, through: :event
+
+  def self.average_pledge
+    # (sum of all the pledges) / (number of pledges on the whole platform)
+  end
 end
+

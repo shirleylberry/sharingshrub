@@ -10,9 +10,9 @@ Donate Button!
 
 <ul>
 <% event.charities.each do |charity| %>
-    <%= link_to charity_path(charity) do %>
-     <li>Charity Name: <%= charity.name %></li>
-    <% end %>
+  <%= link_to charity_path(charity) do %>
+    <li>Charity Name: <%= charity.name %></li>
+  <% end %>
 <% end %>
 </ul>
 
@@ -20,7 +20,7 @@ Donate Button!
 <h3>Event End: <%= event.event_end %></h3>
 
 <%= link_to "Pledge", new_event_pledge_path(event) %>
-<% if current_user.is_host(event) || current_user.admin? %>
+<% if current_user && (current_user.is_host(event) || current_user.admin?) %>
     <%= link_to 'Update Event', edit_event_path(event) %>
 <% end %>
 

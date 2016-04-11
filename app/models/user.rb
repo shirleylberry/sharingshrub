@@ -13,4 +13,7 @@ class User < ActiveRecord::Base
     self.id == event.host.user.id
   end
 
+  def is_donor(event)
+    event.donors.include?(self.donor)
+  end
 end

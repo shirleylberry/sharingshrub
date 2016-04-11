@@ -10,6 +10,7 @@ class PledgesController < ApplicationController
         @pledge.donor = Donor.find_or_create_by(user: current_user)
         @pledge.event = set_event
         if @pledge.save
+            @pledge.event.update_funded_status_if_goal_reached
             redirect_to event_path(set_event)
         else
             render 'new'

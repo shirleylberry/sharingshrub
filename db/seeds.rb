@@ -22,7 +22,7 @@ end
 end
 
 1000.times do
-  User.create(name: Faker::Name.name)
+  User.create(name: Faker::Name.name, email: Faker::Internet.safe_email, password: Faker::Internet.password)
 end 
 
 i=0

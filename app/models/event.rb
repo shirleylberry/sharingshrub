@@ -35,4 +35,26 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def update_funded_status_if_goal_reached
+    self.update_attribute(:funded, true) if self.total_raised_to_date >= self.goal
+  end
+
+  def total_raised_to_date
+    Pledge.where('pledges.event_id = ?', self.id).sum(:amount)
+  end
+
+  def amt_short_of_goal
+    self.funded? ? 0 : self.goal - self.total_raised_to_date 
+  end
+
+  def self.events_between(start_date, end_date)
+    Event.where('events.event_start >= ? AND events.event_end <= ?', start_date, end_date)
+  end
+
+  def average_pledge
+  end
 end
+
+
+
+
