@@ -26,7 +26,9 @@ class Cause < ActiveRecord::Base
   end
 
   def top_supporters_in_last_30_days
-    Donor.select('donors.id AS id, SUM(pledges.amount) AS pledged').joins(:pledges => {:charities => :causes}).where('causes.id = ?', self.id).group('id').order('pledged DESC').limit(10)
+    Donor.select('donors.id AS id, SUM(pledges.amount) AS pledged').joins(:pledges => {:charities => :causes}).where(['causes.id = ? AND pledges.created_at > ?', self.id, Time.now - 30.days]).group('id').order('pledged DESC').limit(10)
   end
+
+
 
 end
