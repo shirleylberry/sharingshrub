@@ -40,5 +40,9 @@ class Charity < ActiveRecord::Base
   def top_supporters
   end
 
+  def self.five_most_pledged_charities
+    Charity.select('charities.name, charities.id AS id, COUNT(pledges.id) AS number_of_pledges').joins(:events => :pledges).group('charities.name').order('number_of_pledges DESC').limit(5)
+  end
+
 end
 

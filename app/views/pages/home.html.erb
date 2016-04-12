@@ -1,11 +1,46 @@
-<h1>
-  Sharing Shrub
-</h1>
+<div class="row">
+    <div class="col-md-8">
+        <h1>
+          Sharing Shrub
+        </h1>
 
-<h3>Check out our events!</h3>
-<ul>
-    <% @events.each do |event| %>
-        <li><%= link_to event.title, event_path(event) %></li>
-    <% end %>
-</ul>
+        <h3>Support upcoming events!</h3>
+        <ul>
+            <% Event.upcoming_events.each do |event| %>
+                <li><%= link_to event.title, event_path(event) %>
+                    <ul>
+                        <li>Donations to date: $<%= event.total_raised_to_date.to_i %></li>
+                        <li>Left to reach goal: $<%= event.amt_short_of_goal.to_i %></li>
+                    </ul>
+                </li>
+            <% end %>
+        </ul> 
+        <div><%= link_to "Move Events", events_path %></div>
+    </div>
+    <div class="col-md-4">
+        <div class="row">
+            <h3><%= Pledge.count %> pledges to date.</h3>
+            <h3>$<%= Pledge.distributed_to_date %> raised for charity.</h3>
+            <h3>Top Pledged Charities:</h3>
+            <% Charity.five_most_pledged_charities.each do |charity| %>
+                <div class="popular-link list-group-item-heading"><%= link_to charity.name, charity_path(charity) %></div>
+            <% end %>
+            <% if !current_user %>
+                <%= link_to new_user_registration_path do %>
+                    <h3><button class="btn btn-success">CREATE EVENT</button></h3>
+                <% end %>
+            <% end %>
+        </div>
+        <h1>
+          Sharing Shrub
+        </h1>
+
+        <h3>Check out our events!</h3>
+        <ul>
+            <% @events.each do |event| %>
+                <li><%= link_to event.title, event_path(event) %></li>
+            <% end %>
+        </ul> 
+    </div>
+</div>
 

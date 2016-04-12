@@ -11,6 +11,7 @@
 class Donor < ActiveRecord::Base
   has_many :pledges
   has_many :events, through: :pledges
+  has_many :causes, through: :events
   belongs_to :user
 
   def total_pledged
@@ -22,7 +23,6 @@ class Donor < ActiveRecord::Base
   end
 
   def pledges_by_cause(cause)
-
   end
 
   def average_donated
