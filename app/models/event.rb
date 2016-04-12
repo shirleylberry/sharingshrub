@@ -49,16 +49,25 @@ class Event < ActiveRecord::Base
 
   def is_on?(start_date, end_date)
     range = (start_date..end_date)
-    range.cover?(self.event_start) || range.cover?(self.event_end)
+    range.cover?(self.event_start) && range.cover?(self.event_end)
   end 
 
   def self.events_between(start_date, end_date)   
-    Event.where('events.event_start <= ? AND events.event_end >= ?', end_date, start_date)
+    Event.where('events.event_start < ? AND events.event_end > ?', end_date, start_date)
     # Event.all.select { |event| event.is_on?(start_date, end_date) }  
-
   end
 
   def average_pledge
+    # Pledge.where('event_id = ?', self.id)
+    #.average(:amount)
+    Pledge.find_by_sql('SELECT AVG("amount") FROM pledges')
+  end
+
+  def campaign_has_ended?
+    # Event.event_start >= Event.event_start - 2.days
+  end
+
+  def event_has_ended?
   end
 end
 
