@@ -25,6 +25,10 @@ class Donor < ActiveRecord::Base
   def pledges_by_cause(cause)
   end
 
+  def self.top_supports_in_array(cause)
+    where(cause: cause).order
+  end
+
   def average_donated
   end
 

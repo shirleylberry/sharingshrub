@@ -51,7 +51,9 @@ class Event < ActiveRecord::Base
   def growth_curve
     stop_time = self.event_end < Time.now ? self.event_end.to_i : Time.now.to_i
     time_interval = (self.created_at.to_i..stop_time).step(24.hours)
-    self.pledges_over_time(time_interval)
+    points_array = self.pledges_over_time(time_interval)
+    # growth_figs = []
+    # points_array.each_with_index { |sum, i| growth_figs << ((sum)/ sum )*100 }
   end
 
   def pledges_over_time(range)

@@ -13,6 +13,7 @@ class Charity < ActiveRecord::Base
   has_many :causes, through: :cause_charities
   has_many :event_charities
   has_many :events, through: :event_charities
+  has_many :hosts, through: :events
 
   def raised_this_year
   end
