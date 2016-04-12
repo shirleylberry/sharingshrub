@@ -11,4 +11,9 @@
 class Host < ActiveRecord::Base
   has_many :events
   belongs_to :user
+
+  def self.most_active_hosts(time_period)
+  end
+
+
 end

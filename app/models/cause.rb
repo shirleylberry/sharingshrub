@@ -15,6 +15,9 @@ class Cause < ActiveRecord::Base
 
   def upcoming_events
     self.events.where("events.event_start > ?", Time.now)
-  end 
+  end
+
+  def top_supporters
+  end
 
 end
