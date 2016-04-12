@@ -47,8 +47,15 @@ class Event < ActiveRecord::Base
     self.funded? ? 0 : self.goal - self.total_raised_to_date 
   end
 
-  def self.events_between(start_date, end_date)
-    Event.where('events.event_start >= ? AND events.event_end <= ?', start_date, end_date)
+  def is_on?(start_date, end_date)
+    range = (start_date..end_date)
+    range.cover?(self.event_start) || range.cover?(self.event_end)
+  end 
+
+  def self.events_between(start_date, end_date)   
+    Event.where('events.event_start <= ? AND events.event_end >= ?', end_date, start_date)
+    # Event.all.select { |event| event.is_on?(start_date, end_date) }  
+
   end
 
   def average_pledge
