@@ -2,15 +2,16 @@
 #
 # Table name: events
 #
-#  id          :integer          not null, primary key
-#  title       :string
-#  host_id     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  event_start :datetime
-#  event_end   :datetime
-#  funded      :boolean
-#  goal        :float
+#  id              :integer          not null, primary key
+#  title           :string
+#  host_id         :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  event_start     :datetime
+#  event_end       :datetime
+#  funded          :boolean          default("f")
+#  goal            :float
+#  funded_deadline :datetime
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

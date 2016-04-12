@@ -2,15 +2,16 @@
 #
 # Table name: events
 #
-#  id          :integer          not null, primary key
-#  title       :string
-#  host_id     :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  event_start :datetime
-#  event_end   :datetime
-#  funded      :boolean
-#  goal        :float
+#  id              :integer          not null, primary key
+#  title           :string
+#  host_id         :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  event_start     :datetime
+#  event_end       :datetime
+#  funded          :boolean          default("f")
+#  goal            :float
+#  funded_deadline :datetime
 #
 
 class Event < ActiveRecord::Base
@@ -58,13 +59,11 @@ class Event < ActiveRecord::Base
   end
 
   def average_pledge
-    # Pledge.where('event_id = ?', self.id)
-    #.average(:amount)
-    Pledge.find_by_sql('SELECT AVG("amount") FROM pledges')
+    Pledge.where(event_id: self.id).average(:amount).to_f
   end
 
-  def campaign_has_ended?
-    # Event.event_start >= Event.event_start - 2.days
+  def funded_deadline_passed?
+    self.funded_deadline >= Time.now
   end
 
   def event_has_ended?

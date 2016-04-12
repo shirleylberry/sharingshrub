@@ -1,3 +1,19 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id              :integer          not null, primary key
+#  title           :string
+#  host_id         :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  event_start     :datetime
+#  event_end       :datetime
+#  funded          :boolean          default("f")
+#  goal            :float
+#  funded_deadline :datetime
+#
+
 # FactoryGirl.define do
 #     factory :event do
 #         association :charity

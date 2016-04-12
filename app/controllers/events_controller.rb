@@ -34,6 +34,7 @@ class EventsController < ApplicationController
                                  :event_start_time_part,
                                  :event_end_date_part, 
                                  :event_end_time_part,
+                                 :funded_deadline,
                                  :charity_ids => []
                                 )
   end 

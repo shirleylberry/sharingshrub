@@ -15,6 +15,8 @@
   <%= label_tag :event_end, "End Time" %>
   <%= f.time_field :event_end_time_part, :ignore_date => true %></p>
 
+  <p><%= f.label :funded_deadline %>
+  <%= f.date_field :funded_deadline %></p>
   <%= f.submit %>
 <% end %>
 
