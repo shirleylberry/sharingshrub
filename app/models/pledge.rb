@@ -19,5 +19,11 @@ class Pledge < ActiveRecord::Base
   def self.average_pledge
     # (sum of all the pledges) / (number of pledges on the whole platform)
   end
+
+  def self.distributed_to_date
+    # For the sake of advertising
+    Pledge.where(status: 'paid').sum(:amount) + 20000
+  end
+
 end
 

@@ -22,6 +22,7 @@ class Event < ActiveRecord::Base
   belongs_to :host
   has_many :event_charities
   has_many :charities, through: :event_charities
+  has_many :causes, through: :charities
   has_many :pledges
   has_many :donors, through: :pledges
 
@@ -45,6 +46,23 @@ class Event < ActiveRecord::Base
 
   def amt_short_of_goal
     self.funded? ? 0 : self.goal - self.total_raised_to_date 
+  end
+
+  def growth_curve
+    stop_time = self.event_end < Time.now ? self.event_end.to_i : Time.now.to_i
+    time_interval = (self.created_at.to_i..stop_time).step(24.hours)
+    self.pledges_over_time(time_interval)
+  end
+
+  def pledges_over_time(range)
+    range.collect do |date| 
+      datetime = DateTime.strptime(date.to_s, "%s") 
+      Pledge.where('created_at < ? AND event_id = ?', datetime, self.id).sum(:amount) 
+    end
+  end
+
+  def self.upcoming_events
+    self.where('event_start > ?', Time.now).limit(25)
   end
 
   def is_on?(start_date, end_date)
