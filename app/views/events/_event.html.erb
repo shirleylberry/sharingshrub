@@ -4,7 +4,6 @@
         <h4>Deadline to Fund this Event: <%= event.funded_deadline %></h4>
         
         <label>Charities:</label>
-
         <ul>
         <% event.charities.each do |charity| %>
           <%= link_to charity_path(charity) do %>
@@ -32,4 +31,6 @@
         <h4>Deadline to Fund this Event: <%= event.funded_deadline %></h4>
     </div>
 </div>
+
+
 
