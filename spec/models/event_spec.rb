@@ -16,10 +16,51 @@
 
 require 'rails_helper'
 
-# describe Event do
+describe Event do
+  before(:each) do
+    @event = FactoryGirl.build(:event)
+  end
 
-#   describe 'validations' do
+  describe 'validations' do
+    it 'is a valid test Event' do
+      expect(@event.save).to eq(true)
+    end
 
+    it 'is valid if it starts before it ends' do
+      expect(@event.save).to eq(true)
+    end
+
+    it 'is invalid if it starts before it ends' do
+      @event.event_start = Time.new(2016, 10, 11, 17) # 5pm
+      @event.event_end = Time.new(2016, 10, 11, 9) # 9am
+      expect(@event.save).to eq(false)
+    end
+    
+#     it 'has at least one charity' do 
+#       expect(@event.save).to eq(false)
+#     end 
+
+#     it 'has less than three charities' do 
+#       @event.charities.empty
+#       @event.charities.push(@charity1, @charity2, @charity3, @charity4)
+#       expect(@event.save).to eq(false) 
+#     end 
+  end
+
+  describe '#update_funded_status_if_goal_reached' do
+    it 'updates the funded status if an event is funded' do
+      @event = build(:event, :fully_funded)
+      binding.pry
+    end
+    # @event.pledges.push()
+  end
+
+  describe '#' do
+  end
+end
+
+
+# old stuff
 #     before(:each) do   
 #       # @shirley = User.create(name: "Shirley")
 #       # @jeff = User.create(name: "Jeff")
@@ -43,44 +84,6 @@ require 'rails_helper'
 #       @event = Event.new(title: 'A Event', host_id: @host, goal: 1000, event_start: Time.new(2016, 8, 12, 10), event_end: Time.new(2016, 8, 12, 14) ) 
     
 #     end
-
-#     it 'is a valid test Event' do
-#       expect(@event.save).to eq(true)
-#     end
-
-#     it 'is valid if it starts before it ends' do
-#       expect(@event.save).to eq(true)
-#     end
-
-#     it 'is invalid if it starts before it ends' do
-#       @event.event_end = Time.new(2016, 10, 11, 9)
-#       expect(@event.save).to eq(false)
-#     end
     
-#     it 'has at least one charity' do 
-#       expect(@event.save).to eq(false)
-#     end 
+    ###
 
-#     it 'has less than three charities' do 
-#       @event.charities.empty
-#       @event.charities.push(@charity1, @charity2, @charity3, @charity4)
-#       expect(@event.save).to eq(false) 
-#     end 
-
-#     # it 'has a description' do
-#     #   expect(listing.description).to eq("Whole house for rent on mountain. Many bedrooms.")
-#     # end
-
-#     # it 'has an address' do 
-#     #   expect(@listing1.address).to eq('123 Main Street')
-#     # end
-
-#     # it 'has a listing type' do 
-#     #   expect(@listing2.listing_type).to eq("shared room")
-#     # end
-
-#     # it 'has a price' do
-#     #   expect(@listing2.price).to eq(15.00)
-#     # end
-#   end
-# end

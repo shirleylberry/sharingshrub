@@ -11,3 +11,9 @@
 #  status     :string
 #
 
+FactoryGirl.define do
+  factory :pledge do
+    donor
+    event
+  end
+end

@@ -14,14 +14,22 @@
 #  funded_deadline :datetime
 #
 
-# FactoryGirl.define do
-#     factory :event do
-#         association :charity
-#         association :host
-#         host factory: :host
-#         event_start { Time.new(2016, 10, 11, 17) }
-#         event_end { Time.new(2016, 10, 11, 20) }
-#         goal { 1000 }
-        
-#     end
-# end
+FactoryGirl.define do
+  factory :event do
+    title "Benefit for the Homeless"
+    host
+    event_start { Time.new(2018, 10, 11, 17) }
+    event_end { Time.new(2018, 10, 11, 20) }
+    goal 200
+    funded_deadline { Time.new(2018, 9, 1, 12) }
+
+    trait :fully_funded do
+      after(:build) do |event|
+        # FactoryGirl.build(:pledge, amount: 100, event: event)
+        # FactoryGirl.build(:pledge, amount: 50, event: event)
+        # FactoryGirl.build(:pledge, amount: 75, event: event)
+        create_list(:pledge, 5, event: event, amount: 100)
+      end
+    end
+  end
+end

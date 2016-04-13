@@ -8,3 +8,8 @@
 #  updated_at :datetime         not null
 #
 
+FactoryGirl.define do
+  factory :cause do
+    name "Global Hunger"
+  end
+end

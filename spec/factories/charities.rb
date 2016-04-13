@@ -8,3 +8,8 @@
 #  updated_at :datetime         not null
 #
 
+FactoryGirl.define do
+  factory :charity do
+    name "UNICEF"
+  end
+end
