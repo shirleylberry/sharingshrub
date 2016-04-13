@@ -37,4 +37,13 @@ class User < ActiveRecord::Base
   def is_donor(event)
     event.donors.include?(self.donor)
   end
+
+  def events_to_checkout
+    if self.donor
+      favorite_cause = self.donor.favorite_cause[0]
+      Event.select('events.title, SUM(pledges.amount) AS raised').joins(:pledges, :charities => :causes).where('causes.id = ?', favorite_cause.id).group('events.id').order('raised DESC')
+    else
+      Event.upcoming_events(limit: 5)
+    end
+  end
 end

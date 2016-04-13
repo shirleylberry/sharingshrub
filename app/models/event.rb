@@ -27,16 +27,45 @@ class Event < ActiveRecord::Base
   has_many :pledges
   has_many :donors, through: :pledges
 
-  # validates :host, presence: true
-  # validates :charities, length: {in: 1..3}
+  validates :host, presence: true
+  validates :goal, presence: true
+  validates :goal, numericality: { 
+                   greater_than_or_equal_to: 50, message: "- your event must raise at least $50.", 
+                   less_than_or_equal_to: 1000000, message: "- we limit goals to $1,000,000. Don't worry, you're event isn't limited in how much can be pledged!" 
+                 } 
+  validates :charities, length: { in: 1..3, :message => "Please select one to three charities your event will support." }
+  validates :event_start, presence: true
+  validates :event_end, presence: true
   validate :start_time_before_end_time
+  validate :event_planned_at_least_two_weeks_out
+  validate :event_planned_within_one_year
 
+  # CUSTOM VALIDATIONS 
   def start_time_before_end_time
-    if self.event_start >= self.event_end
-      self.errors.add(:event_start, "must be before event end")
+    if self.event_start && self.event_end
+      if self.event_start >= self.event_end
+        self.errors.add(:event_start, "- events cannot start before they end")
+      end
     end
   end
 
+  def event_planned_at_least_two_weeks_out
+    if self.event_start && self.event_end
+      if self.event_start < (Time.now + 14.days)
+        self.errors.add(:event_start, "- events must be scheduled at least two-weeks out. Please have your event start on or after #{(Time.now + 14.days).to_date}")
+      end
+    end
+  end
+
+  def event_planned_within_one_year
+    if self.event_start && self.event_end
+      if self.event_start > (Time.now + 1.year)
+        self.errors.add(:event_start, "- your event cannot be planned more than one year from today, #{(Time.now).to_date}")
+      end
+    end
+  end
+
+  # EVENT MODEL METHODS
   def update_funded_status_if_goal_reached
     self.update_attribute(:funded, true) if self.total_raised_to_date >= self.goal
   end
@@ -79,8 +108,8 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.upcoming_events
-    self.where('event_start > ?', Time.now).limit(25)
+  def self.upcoming_events(limit: 25)
+    self.where('event_start > ?', Time.now).limit(limit)
   end
 
   def is_on?(start_date, end_date)

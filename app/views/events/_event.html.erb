@@ -1,29 +1,35 @@
-<h2>Title: <%= event.title %></h2>
-<h3>Goal: <%= event.goal %></h3>
-<!-- 
-ex. Current : _____  ( 70% achieved! )| $400 more to Go!
-    Doners
+<div class="row">
+    <div class="col-md-8">
+        <h2>Title: <%= event.title %></h2>
+        <h4>Deadline to Fund this Event: <%= event.funded_deadline %></h4>
+        
+        <label>Charities:</label>
 
-Donate Button!
- -->
-<label>Charities:</label>
+        <ul>
+        <% event.charities.each do |charity| %>
+          <%= link_to charity_path(charity) do %>
+            <li><%= charity.name %></li>
+          <% end %>
+        <% end %>
+        </ul>
 
-<ul>
-<% event.charities.each do |charity| %>
-  <%= link_to charity_path(charity) do %>
-    <li>Charity Name: <%= charity.name %></li>
-  <% end %>
-<% end %>
-</ul>
+        <h3>Event Description:</h3>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+        
+        <% if current_user && (current_user.is_host(event) || current_user.admin?) %>
+            <%= link_to 'Update Event', edit_event_path(event) %>
+        <% end %>
+    </div>
+    <div class="col-md-4">
+        <h3>Goal: $<%= event.goal %></h3>
+        <h3>Raised: $<%= event.total_raised_to_date %></h3>
 
-<h3>Event Start: <%= event.event_start %></h3>
-<h3>Event End: <%= event.event_end %></h3>
+        <%= link_to "Make a Pledge", new_event_pledge_path(event), class: "btn btn-success" %>
 
-<h4>Deadline to Fund this Event: <%= event.funded_deadline %></h4>
+        <h3>Event Start: <%= event.event_start %></h3>
+        <h3>Event End: <%= event.event_end %></h3>
 
-<%= link_to "Pledge", new_event_pledge_path(event) %>
-<% if current_user && (current_user.is_host(event) || current_user.admin?) %>
-    <%= link_to 'Update Event', edit_event_path(event) %>
-<% end %>
-
+        <h4>Deadline to Fund this Event: <%= event.funded_deadline %></h4>
+    </div>
+</div>
 
