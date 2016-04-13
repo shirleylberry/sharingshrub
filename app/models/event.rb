@@ -53,6 +53,20 @@ class Event < ActiveRecord::Base
     stop_time = self.event_end < Time.now ? self.event_end.to_i : Time.now.to_i
     time_interval = (self.created_at.to_i..stop_time).step(24.hours)
     points_array = self.pledges_over_time(time_interval)
+    # new_arr = []
+
+    # i = 0
+
+    # while i < points_array.length - 1
+    #   if points_array[i] == 0
+    #     new_arr << points_array[i + 1]
+    #   else
+    #     calc = ((points_array[i + 1] - points_array[i]).to_f / points_array[i]) * 100
+    #     new_arr << calc
+    #     i += 1
+    #   end
+    # end
+    # new_arr
     # growth_figs = []
     # points_array.each_with_index { |sum, i| growth_figs << ((sum)/ sum )*100 }
   end
