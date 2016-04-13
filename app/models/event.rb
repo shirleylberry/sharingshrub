@@ -46,6 +46,7 @@ class Event < ActiveRecord::Base
   end
 
   def amt_short_of_goal
+    self.update_funded_status_if_goal_reached
     self.funded? ? 0 : self.goal - self.total_raised_to_date 
   end
 

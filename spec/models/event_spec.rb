@@ -17,11 +17,12 @@
 require 'rails_helper'
 
 describe Event do
-  before(:each) do
-    @event = FactoryGirl.build(:event)
-  end
-
   describe 'validations' do
+
+    before do
+      @event = build(:event)
+    end
+
     it 'is a valid test Event' do
       expect(@event.save).to eq(true)
     end
@@ -50,12 +51,33 @@ describe Event do
   describe '#update_funded_status_if_goal_reached' do
     it 'updates the funded status if an event is funded' do
       @event = build(:event, :fully_funded)
-      binding.pry
+      @event.update_funded_status_if_goal_reached
+      expect(@event.funded).to be(true)
     end
-    # @event.pledges.push()
   end
 
-  describe '#' do
+  describe '#total_raised_to_date' do
+    it 'calculates the total raised' do
+      @event = build(:event, :fully_funded)
+      expect(@event.total_raised_to_date).to eq(500)
+    end
+
+    it 'returns 0 if an event has no pledges' do
+      @event = build(:event)
+      expect(@event.total_raised_to_date).to eq(0)
+    end
+  end
+
+  describe '#amt_short_of_goal' do
+    it 'calculates the total raised' do
+      @event = build(:event, :not_funded)
+      expect(@event.amt_short_of_goal).to eq(150)
+    end
+
+    it 'returns 0 if an event is fully funded' do
+      @event = build(:event, :fully_funded)
+      expect(@event.amt_short_of_goal).to eq(0)
+    end
   end
 end
 

@@ -25,10 +25,13 @@ FactoryGirl.define do
 
     trait :fully_funded do
       after(:build) do |event|
-        # FactoryGirl.build(:pledge, amount: 100, event: event)
-        # FactoryGirl.build(:pledge, amount: 50, event: event)
-        # FactoryGirl.build(:pledge, amount: 75, event: event)
         create_list(:pledge, 5, event: event, amount: 100)
+      end
+    end
+
+    trait :not_funded do
+      after(:build) do |event|
+        create_list(:pledge, 2, event: event, amount: 25)
       end
     end
   end
