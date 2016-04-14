@@ -121,7 +121,7 @@ class Event < ActiveRecord::Base
     growth
   end
 
-  def self.upcoming_events
+  def self.upcoming_events(limit: 25)
     self.where('event_start > ?', Time.now).limit(25)
 
   end
