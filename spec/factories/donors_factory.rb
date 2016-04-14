@@ -11,17 +11,12 @@
 FactoryGirl.define do
   factory :donor do
     user
+    trait :with_pledges do
 
-    factory :donor_with_posts do
-      transient do
-        pledges_count 5
-      end
-
-      after(:create) do |donor, evaluator|
-        create_list(:pledge, evaluator.posts_count, donor: donor)
+      after(:build) do |donor, evaluator|
+        create_list(:pledge, 3, donor: donor, amount: 25)
+        create_list(:pledge, 2, donor: donor, amount: 15)
       end
     end
   end
-
-
 end
