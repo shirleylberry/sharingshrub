@@ -1,3 +1,12 @@
 .label-checkbox { 
     display: block;
 }
+
+#event_fundraising_fillgauge {
+    margin-left: -3em; 
+    position: relative;
+}
+
+.funding_chart text.liquidFillGaugeText {
+    font-size: 28px;
+}

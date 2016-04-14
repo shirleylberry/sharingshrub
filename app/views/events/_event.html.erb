@@ -21,7 +21,11 @@
         <% end %>
     </div>
     <div class="col-md-4">
-        <h3>Goal: $<%= event.goal %></h3>
+
+        <h3>Way to $<%= event.goal %> goal:</h3>
+        <div class = "funding_chart" percent="<%= event.percentage_raised_fund %>">
+            <svg id="event_fundraising_fillgauge"></svg>
+        </div>
         <h3>Raised: $<%= event.total_raised_to_date %></h3>
 
         <%= link_to "Make a Pledge", new_event_pledge_path(event), class: "btn btn-success" %>
@@ -31,16 +35,6 @@
 
         <h4>Deadline to Fund this Event: <%= event.funded_deadline %></h4>
     </div>
-
-
 <body>
-
-<h2>Title: <%= event.title %></h2>
-<h3>Goal: $ <%= event.goal %></h3>
-<div class = "funding_chart", percent = <%= event.percentage_raised_fund %> >
-<svg id="event_fundraising_fillgauge" width="30%" height="200"></svg>
-
-</div>
-
 
 
