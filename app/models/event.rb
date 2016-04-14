@@ -83,10 +83,47 @@ class Event < ActiveRecord::Base
     self.update_funded_status_if_goal_reached
     self.funded? ? 0 : self.goal - self.total_raised_to_date 
   end
+  
+  #ex. {Thu, 24 Mar 2016 05:00:00 +0000=> 20, Fri, 25 Mar 2016 05:00:00 +0000=> 70 }
+  def pledges_over_time(start_time, stop_time)
+    day_interval = (start_time.to_i..stop_time.to_i).step(24.hours)
+    pledge_collection = {}
+    day_interval.collect do |date| 
+      datetime = DateTime.strptime(date.to_s, "%s") 
+      amount_to_date =  Pledge.where('created_at < ? AND event_id = ?', datetime, self.id).sum(:amount) 
+      pledge_collection[datetime] = amount_to_date
+    end
+    pledge_collection
+  end
+
 
 
   def self.upcoming_events(limit: 25)
     self.where('event_start > ?', Time.now).limit(limit)
+
+  end 
+  def growth_curve
+    start_time = self.created_at
+    stop_time = self.event_end < Time.now ? self.event_end : Time.now
+   
+    pledges_sum_each_day = self.pledges_over_time(start_time, stop_time).values
+    growth = []
+    i = 1
+    while i < pledges_sum_each_day.count
+      if pledges_sum_each_day[i-1] == 0
+         calc = 0 
+      else  
+        calc = ((pledges_sum_each_day[i] - (pledges_sum_each_day[i-1]).to_f)/ pledges_sum_each_day[i]) * 100    
+      end  
+        growth << calc
+        i += 1
+     end
+    growth
+  end
+
+  def self.upcoming_events(limit: 25)
+    self.where('event_start > ?', Time.now).limit(25)
+
   end
 
   def is_on?(start_date, end_date)
