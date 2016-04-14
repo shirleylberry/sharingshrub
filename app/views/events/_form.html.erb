@@ -1,6 +1,7 @@
 <%= form_for event do |f| %>
   <%= f.label :event_title, "Name your event:" %>
-  <%= f.text_field :title %>   
+  <%= f.text_field :title %>
+  <br>   
   <%= f.label :address, "Address:" %>
   <%= f.text_field :address %> 
   <button id="geocode-address">Lookup</button>
@@ -31,6 +32,4 @@
   <%= f.date_field :funded_deadline %></p>
   <%= f.submit class: "btn btn-success" %>
 <% end %>
-
-
  

@@ -1,4 +1,4 @@
- $(document).ready(function() {
+$(function() {
   
   var map;
   function initMap() {
@@ -9,6 +9,7 @@
   }
 
   initMap();
-})
+  
+});
 
 
