@@ -1,4 +1,4 @@
-$(function() {
+$(document).on('read page:load', function() {
   
   var map;
   function initMap() {

@@ -12,10 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require turbolinks
+//= require jquery-readyselector
 //= require braintree_sandbox_payment
+//= require d3
 //= require underscore
 //= require gmaps
 //= require markerclusterer
-//= require d3
 //= require_tree .
 
