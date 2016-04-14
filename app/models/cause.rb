@@ -29,6 +29,4 @@ class Cause < ActiveRecord::Base
     Donor.select('donors.id AS id, SUM(pledges.amount) AS pledged').joins(:pledges => {:charities => :causes}).where(['causes.id = ? AND pledges.created_at > ?', self.id, Time.now - 30.days]).group('id').order('pledged DESC').limit(10)
   end
 
-
-
 end

@@ -4,7 +4,7 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Thanks for making a pledge of $<%= @pledge.amount %> to <%= @event.title%> <%= ", " + @user.name if @user.name%></h1>
+    <h1>Thanks for making a pledge of $<%= @pledge.amount %> to <%= @event.title%></h1>
     <p>
       To view the event, just follow this link: <%= event_path(@event) %>.
     </p>

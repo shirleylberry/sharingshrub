@@ -1,9 +1,14 @@
 <%= form_for event do |f| %>
-  <%= f.label :event_title %>
-  <%= f.text_field :title %>
-  <%= f.label :charity %>
-  <p>Select up to three charities</p>
-  <%= f.collection_check_boxes :charity_ids, Charity.all, :id, :name %>
+  <%= f.label :event_title, "Name your event:" %>
+  <%= f.text_field :title %>   
+  
+  <h3>Select up to three charities:</h3>
+  <%= f.collection_check_boxes :charity_ids, Charity.all, :id, :name do |b| %>
+    <%= b.label class:"label-checkbox" do%>
+      <%= b.check_box + " " + b.text %>
+    <% end %>
+  <% end %>
+
   <p><%= f.label :goal %>
   <%= f.number_field :goal, placeholder: "$10,000" %></p>
   <p><%= label_tag :event_start, "Start Date" %>
@@ -17,7 +22,7 @@
 
   <p><%= f.label :funded_deadline %>
   <%= f.date_field :funded_deadline %></p>
-  <%= f.submit %>
+  <%= f.submit class: "btn btn-success" %>
 <% end %>
 
 

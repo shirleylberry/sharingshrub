@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require braintree_sandbox_payment
+//= require d3
 //= require_tree .
+

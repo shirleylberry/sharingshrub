@@ -1,3 +1,8 @@
+Braintree::Configuration.environment = :sandbox
+Braintree::Configuration.merchant_id = "57qh5q9hmhpjhbtb"
+Braintree::Configuration.public_key = "q9frz2333swxym75"
+Braintree::Configuration.private_key = "a3f8dd444e80edd33b0429ac9e1a7126"
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 

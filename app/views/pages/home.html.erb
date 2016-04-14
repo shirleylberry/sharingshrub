@@ -18,29 +18,28 @@
         <div><%= link_to "Move Events", events_path %></div>
     </div>
     <div class="col-md-4">
-        <div class="row">
-            <h3><%= Pledge.count %> pledges to date.</h3>
-            <h3>$<%= Pledge.distributed_to_date %> raised for charity.</h3>
-            <h3>Top Pledged Charities:</h3>
-            <% Charity.five_most_pledged_charities.each do |charity| %>
-                <div class="popular-link list-group-item-heading"><%= link_to charity.name, charity_path(charity) %></div>
+        <h3><%= Pledge.count %> pledges to date.</h3>
+        <h3>$<%= Pledge.distributed_to_date %> raised for charity.</h3>
+        <h3>Top Pledged Charities:</h3>
+        <% Charity.five_most_pledged_charities.each do |charity| %>
+            <div class="list-group-item-heading"><%= link_to charity.name, charity_path(charity) %></div>
+        <% end %>
+        <% if !current_user %>
+            <%= link_to new_user_registration_path do %>
+                <h3><button class="btn btn-success">CREATE EVENT</button></h3>
             <% end %>
-            <% if !current_user %>
-                <%= link_to new_user_registration_path do %>
-                    <h3><button class="btn btn-success">CREATE EVENT</button></h3>
+        <% end %>
+
+        <% if current_user.events_to_checkout %>
+            <h3>Based on your interests:</h3>
+            <% current_user.events_to_checkout.each do |event| %>
+                <%= link_to event_path(event) do %>
+                    <div class="list-group-item-heading"><%= event.title %></div>
                 <% end %>
             <% end %>
-        </div>
-        <h1>
-          Sharing Shrub
-        </h1>
+        <% end %>
 
-        <h3>Check out our events!</h3>
-        <ul>
-            <% @events.each do |event| %>
-                <li><%= link_to event.title, event_path(event) %></li>
-            <% end %>
-        </ul> 
+
     </div>
 </div>
 
