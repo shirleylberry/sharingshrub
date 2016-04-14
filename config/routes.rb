@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       
   end 
 
+  get '/events/:id/growth_curve' => 'events#growth_curve'
+
   root 'pages#home'
 
   # The priority is based upon order of creation: first created -> highest priority.
