@@ -38,7 +38,7 @@ class PledgesController < ApplicationController
     end
 
     def payment_nonce
-        # in production, this method will replace "fake-valid-nonce"
+        # in production, this method will replace
         permitted = params.permit(:payment_method_nonce)
         permitted[:payment_method_nonce]
     end

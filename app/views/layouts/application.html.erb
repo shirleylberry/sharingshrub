@@ -4,8 +4,8 @@
   <meta charset="UTF-8"></meta>
   <title>Sharingshrub</title>
   <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css' %>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
   <%= javascript_include_tag 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js' %>
   <%= csrf_meta_tags %>
 </head>
@@ -14,9 +14,12 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <%= link_to root_path do %>
-        <%= image_tag 'sharing_shrub_logo.png', class: "navbar-brand"%>
-      <% end %>
+      <ul class="nav navbar-nav">
+        <%= link_to root_path do %>
+          <%= image_tag 'sharing_shrub_logo.png', class: "navbar-brand"%>
+        <% end %>
+        <li><%= link_to "sharing shrub", root_path %></li>
+      </ul>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
@@ -56,5 +59,6 @@
     <div class="col-md-1"></div>
   </div>
 </div>
+
 </body>
 </html>

@@ -1,4 +1,4 @@
-  $(document).on('ready page:load', function (){
+$(document).on('ready page:load', function (){
 
   var config1 = liquidFillGaugeDefaultSettings();
     config1.circleColor = "#FF7777";
@@ -12,6 +12,6 @@
 
   var percentage = $('div.funding_chart').attr('percent')
   var gauge2= loadLiquidFillGauge("event_fundraising_fillgauge", parseInt(percentage), config1);
-       
-  })
+ 
+})
 

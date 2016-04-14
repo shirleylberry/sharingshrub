@@ -17,8 +17,7 @@ gem 'coffee-rails', '~> 4.1.0'
 # Use jquery as the JavaScript library
 
 gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
@@ -26,13 +25,18 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 # gem "bcrypt-ruby", :require => "bcrypt"
-gem'd3-rails'
+gem 'd3-rails'
 # Use Unicorn as the app server
 # gem 'unicorn'
 gem "factory_girl_rails", "~> 4.0"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+
+# For googlemaps
+gem 'gmaps4rails'
+# For event addresses
+gem 'geocoder'
 
 gem 'multiparameter_date_time'
 # Braintree by PayPal

@@ -1,0 +1,22 @@
+.col-md-8 {
+    border-right: 1px solid #d3d3d3;
+}
+
+.col-md-4 {
+    padding-left: 3em;
+    text-align: center;
+}
+
+#sharing-stats {
+    padding: 20px;
+    border: 5px solid #d3d3d3;
+    border-radius: 20px;
+}
+
+#sharing-stats p {
+    text-align: left;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #5CB85C;
+    margin: 0;
+}

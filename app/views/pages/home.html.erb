@@ -1,10 +1,11 @@
 <div class="row">
     <div class="col-md-8">
-        <h1>
-          Sharing Shrub
-        </h1>
-
-        <h3>Support upcoming events!</h3>
+        
+        <h3>Checkout and Support Upcoming Events!</h3>
+        <div style="width: 100%">
+            <div id="map" style="width: 100%; height: 400px"></div>
+        </div>
+        
         <ul>
             <% Event.upcoming_events.each do |event| %>
                 <li><%= link_to event.title, event_path(event) %>
@@ -18,8 +19,10 @@
         <div><%= link_to "Move Events", events_path %></div>
     </div>
     <div class="col-md-4">
-        <h3><%= Pledge.count %> pledges to date.</h3>
-        <h3>$<%= Pledge.distributed_to_date %> raised for charity.</h3>
+        <div id="sharing-stats">
+            <p><%= Pledge.count %> pledges to date.</p>
+            <p>$<%= Pledge.distributed_to_date %> raised for charity.</p>
+        </div>
         <h3>Top Pledged Charities:</h3>
         <% Charity.five_most_pledged_charities.each do |charity| %>
             <div class="list-group-item-heading"><%= link_to charity.name, charity_path(charity) %></div>

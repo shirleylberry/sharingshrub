@@ -1,7 +1,14 @@
 <%= form_for event do |f| %>
   <%= f.label :event_title, "Name your event:" %>
   <%= f.text_field :title %>   
-  
+  <%= f.label :address, "Address:" %>
+  <%= f.text_field :address %> 
+  <button id="geocode-address">Lookup</button>
+
+  <%= f.hidden_field :latitude %>
+  <%= f.hidden_field :longitude %>
+
+
   <h3>Select up to three charities:</h3>
   <%= f.collection_check_boxes :charity_ids, Charity.all, :id, :name do |b| %>
     <%= b.label class:"label-checkbox" do%>
