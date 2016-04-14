@@ -41,9 +41,14 @@ class User < ActiveRecord::Base
   def events_to_checkout
     if self.donor
       favorite_cause = self.donor.favorite_cause[0]
-      Event.select('events.title, SUM(pledges.amount) AS raised').joins(:pledges, :charities => :causes).where('causes.id = ?', favorite_cause.id).group('events.id').order('raised DESC')
+      Event.select('events.id AS id, events.title, SUM(pledges.amount) AS raised').joins(:pledges, :charities => :causes).where('causes.id = ?', favorite_cause.id).group('events.id').order('raised DESC').limit(10)
     else
       Event.upcoming_events(limit: 5)
     end
   end
+
+  def username
+    self.email.split('@')[0]
+  end
+
 end

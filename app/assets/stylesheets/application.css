@@ -28,3 +28,11 @@
 #user_nav #nav_icon {
     text-align: left;
 }
+
+.navbar .navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 5px 5px;
+    font-size: 18px;
+    line-height: 20px;
+}
