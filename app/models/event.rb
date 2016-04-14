@@ -101,7 +101,7 @@ class Event < ActiveRecord::Base
   def self.upcoming_events(limit: 25)
     self.where('event_start > ?', Time.now).limit(limit)
 
-
+  end 
   def growth_curve
     start_time = self.created_at
     stop_time = self.event_end < Time.now ? self.event_end : Time.now
@@ -117,15 +117,13 @@ class Event < ActiveRecord::Base
       end  
         growth << calc
         i += 1
-      end
+     end
     growth
   end
 
- 
-
   def self.upcoming_events
     self.where('event_start > ?', Time.now).limit(25)
->>>>>>> event
+
   end
 
   def is_on?(start_date, end_date)
