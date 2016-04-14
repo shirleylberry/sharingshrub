@@ -54,40 +54,39 @@ class Event < ActiveRecord::Base
     self.update_funded_status_if_goal_reached
     self.funded? ? 0 : self.goal - self.total_raised_to_date 
   end
+  
+  #ex. {Thu, 24 Mar 2016 05:00:00 +0000=> 20, Fri, 25 Mar 2016 05:00:00 +0000=> 70 }
+  def pledges_over_time(start_time, stop_time)
+    day_interval = (start_time.to_i..stop_time.to_i).step(24.hours)
+    pledge_collection = {}
+    day_interval.collect do |date| 
+      datetime = DateTime.strptime(date.to_s, "%s") 
+      amount_to_date =  Pledge.where('created_at < ? AND event_id = ?', datetime, self.id).sum(:amount) 
+      pledge_collection[datetime] = amount_to_date
+    end
+    pledge_collection
+  end
 
 
-  # #takes period, an array argument(day_interval), 
-  # #returns the array of pledges(amount) raised on each day during the period given. 
-  # def pledges_over_time(day_interval)
-  #   day_inverval.collect do |date| 
-  #     datetime = DateTime.strptime(date.to_s, "%s") 
-  #     Pledge.where('created_at < ? AND event_id = ?', datetime, self.id).sum(:amount) 
-  #   end
-  # end
 
-  # def growth_curve
-  #   stop_time = self.event_end < Time.now ? self.event_end.to_i : Time.now.to_i
-  #   time_interval = (self.created_at.to_i..stop_time).step(24.hours)
-  #  binding.pry
-  #   points_array = self.pledges_over_time(time_interval)
+  def growth_curve
+    start_time = self.created_at
+    stop_time = self.event_end < Time.now ? self.event_end : Time.now
    
-  #   new_arr = []
-
-  #   # i = 0
-
-  #   # while i < points_array.length - 1
-  #   #   if points_array[i] == 0
-  #   #     new_arr << points_array[i + 1]
-  #   #   else
-  #   #     calc = ((points_array[i + 1] - points_array[i]).to_f / points_array[i]) * 100
-  #   #     new_arr << calc
-  #   #     i += 1
-  #   #   end
-  #   # end
-  #   # new_arr
-  #   # growth_figs = []
-  #   # points_array.each_with_index { |sum, i| growth_figs << ((sum)/ sum )*100 }
-  # end
+    pledges_sum_each_day = self.pledges_over_time(start_time, stop_time).values
+    growth = []
+    i = 1
+    while i < pledges_sum_each_day.count
+      if pledges_sum_each_day[i-1] == 0
+         calc = 0 
+      else  
+        calc = ((pledges_sum_each_day[i] - (pledges_sum_each_day[i-1]).to_f)/ pledges_sum_each_day[i]) * 100    
+      end  
+        growth << calc
+        i += 1
+      end
+    growth
+  end
 
  
 
