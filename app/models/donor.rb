@@ -14,6 +14,8 @@ class Donor < ActiveRecord::Base
   has_many :causes, through: :events
   belongs_to :user
 
+  delegate :name, :email, to: :user
+
   def total_pledged
     Pledge.where('donor_id = ?', self.id).sum('amount')
   end
