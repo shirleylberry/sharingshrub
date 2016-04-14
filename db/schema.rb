@@ -67,9 +67,10 @@ ActiveRecord::Schema.define(version: 20160414135712) do
     t.integer  "event_id"
     t.integer  "donor_id"
     t.integer  "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.string   "status"
+    t.string   "transaction_id"
   end
 
   create_table "users", force: :cascade do |t|

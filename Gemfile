@@ -35,6 +35,8 @@ gem "factory_girl_rails", "~> 4.0"
 # gem 'capistrano-rails', group: :development
 
 gem 'multiparameter_date_time'
+# Braintree by PayPal
+gem "braintree"
 
 gem 'devise'
 

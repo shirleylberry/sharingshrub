@@ -1,0 +1,16 @@
+The event <%= @event.title%> has been successfully funded!
+
+===============================================
+
+You and <%= @event.pledges.count %> pledged to help this event reach its goal of $<%= @event.goal%>.
+
+You're supporting the following charities: 
+<% @event.charities.each do |charity| %>
+  <%= charity.name %>
+<% end %>
+
+This event is scheduled to start <%= @event.event_start%>
+
+Visit this link to view the event: <%= @url %>.
+
+Thanks for supporting this event and have a great day!

@@ -1,0 +1,11 @@
+Your event <%= @event.title%> has been successfully funded!
+
+===============================================
+
+<%= @event.pledges.count %> donors pledged to help your event reach its goal of $<%= @event.goal%>.
+
+This event is scheduled to start <%= @event.event_start%>
+
+Visit this link to view the event: <%= @url %>.
+
+Great job!

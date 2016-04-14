@@ -30,7 +30,7 @@
             <% end %>
         <% end %>
 
-        <% if current_user %>
+        <% if current_user.events_to_checkout %>
             <h3>Based on your interests:</h3>
             <% current_user.events_to_checkout.each do |event| %>
                 <%= link_to event_path(event) do %>

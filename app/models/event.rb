@@ -66,9 +66,17 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def send_emails_if_funded
+    if self.funded
+      EventMailer.event_funded_donors_email(self).deliver_now
+      EventMailer.event_funded_host_email(self).deliver_now
+    end
+  end
+
   # EVENT MODEL METHODS
   def update_funded_status_if_goal_reached
     self.update_attribute(:funded, true) if self.total_raised_to_date >= self.goal
+    self.send_emails_if_funded
   end
   
   def total_raised_to_date
@@ -95,8 +103,6 @@ class Event < ActiveRecord::Base
     end
     pledge_collection
   end
-
-
 
   def self.upcoming_events(limit: 25)
     self.where('event_start > ?', Time.now).limit(limit)

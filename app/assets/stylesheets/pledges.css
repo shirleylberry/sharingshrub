@@ -1,0 +1,12 @@
+.donation_input {
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    font-size: 1.25em;
+    padding: 8px 25px;
+    margin-top: 15px;
+    border: none;
+    background-color: #009CDE;
+}

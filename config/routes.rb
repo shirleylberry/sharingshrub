@@ -1,14 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
-
   
-      resources :causes
-      resources :charities
+  resources :causes
+  resources :charities
 
-      resources :events do
-        resources :pledges
-      
-  end 
+  resources :events do
+    resources :pledges
+  end
 
   root 'pages#home'
 

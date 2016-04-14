@@ -2,6 +2,9 @@
 
 <%= form_for @pledge, url: event_pledges_path(@event) do |f| %>
     <p><%= f.label :amount, "How big is your heart?" %></p>
-    <div>$<%= f.number_field :amount, placeholder: "50" %></div>
-    <p><%= f.submit "Pledge" %></p>
+    <div class="col-sm-2 donation_input"><%= f.number_field :amount, placeholder: "$50", class: "form-control"%></div>
+    <div id="payment-form"></div>
+    <%= f.submit "Pledge", class: "btn btn-primary" %>
 <% end %>
+<%= javascript_include_tag "https://js.braintreegateway.com/v2/braintree.js" %>
+<%= javascript_include_tag "braintree_sandbox_payment" %>
