@@ -25,46 +25,46 @@ require 'rails_helper'
 describe User do
   
   describe 'a factory' do
-    it 'makes a user' do
+    it 'makes a valid user' do
       user = build(:user)
-      expect(user.email).to eq('person@example.com')
+      expect(user.save).to be(true)
     end
   end
-  # describe '#is_host' do 
-  #   let(:user) {User.create(name: "Bobbo", email: "bobbo@example.com", password: "8123jknasd")}
-  #   let(:host) {Host.create(user: user)}
+  describe '#is_host' do 
+    before do
+      @user1 = build_stubbed(:user, name: "Host McGee")
+      @user2 = build_stubbed(:user, name: "Bob Notahost")
+      @host = build_stubbed(:host, user: @user1)
+      @event = build_stubbed(:event, host: @host)
+    end
 
-  #   let(:event) {Event.create(title: "UNICEF Benefit", host: host, event_start: Time.new(2016, 10, 10, 17, 40), event_end: Time.new(2016, 10, 11, 12, 40))}
-    
-  #   let(:user2) {User.create(name: "Yakko", email: "yakko@example.com", password: "8123jknasd")}
-  #   let(:host2) {Host.create(user: user2)}
-  #   it 'returns true if the user is the host of the event' do
-  #     expect(user.is_host(event)).to be(true)
-  #   end
-  #   it 'returns false if the user is not the host of the event' do
-  #     expect(user2.is_host(event)).to be(false)
-  #   end
-  # end
+    it 'returns true if the user is the host of the event' do
+      expect(@user1.is_host(@event)).to be(true)
+    end
+    it 'returns false if the user is not the host of the event' do
+      expect(@user2.is_host(@event)).to be(false)
+    end
+  end
 
-  # describe '#is_donor' do
-  #   let(:user) {User.create(name: "Bobbo", email: "bobbo@example.com", password: "8123jknasd")}
-  #   let(:host_user) {User.create(name: "Yakko", email: "yakko@example.com", password: "8123jknasd")}
-  #   let(:host) {Host.create(user:host_user)}
-  #   let(:donor) {Donor.create(user: user)}
+  describe '#is_donor' do 
+    before do
+      @user1 = build(:user)
+      @host = build(:host, user: @user1)
+      @event = create(:event, host: @host)
 
-  #   let(:event) {Event.create(title: "UNICEF Benefit", host: host, event_start: Time.new(2016, 10, 10, 17, 40), event_end: Time.new(2016, 10, 11, 12, 40))}
-  #   let!(:pledge) {Pledge.create(event: event, donor: donor)}
+      @user2 = build(:user)
+      @donor = build(:donor, user: @user2)
+      @pledge = create(:pledge, event: @event, donor: @donor)
+    end
 
-  #   let(:user2) {User.create(name: "Yakko", email: "yakko@example.com", password: "8123jknasd")}
-  #   let(:donor2) {Donor.create(user: user2)}
-
-  #   it 'returns true if the user has donated' do
-  #     expect(user.is_donor(event)).to be(true)
-  #   end
-  #   it 'returns false if the user has not donated' do
-  #     expect(user2.is_donor(event)).to be(false)
-  #   end
-  # end
+    it 'returns true if the user is a donor to the event' do
+      binding.pry
+      expect(@user2.is_donor(@event)).to be(true)
+    end
+    it 'returns false if the user is not a donor to the event' do
+      expect(@user1.is_donor(@event)).to be(false)
+    end
+  end
 end
 
 

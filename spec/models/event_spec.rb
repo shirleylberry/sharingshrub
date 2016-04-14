@@ -81,31 +81,3 @@ describe Event do
   end
 end
 
-
-# old stuff
-#     before(:each) do   
-#       # @shirley = User.create(name: "Shirley")
-#       # @jeff = User.create(name: "Jeff")
-#       # @ian = User.create(name: "Ian")
-#       # @bob = User.create(name: "Bob")
-#       # @ada  = User.create(name: "Ada")
-
-#       # @event1 = Event.new(title: "ShoeNami")
-#       # @event2 = Event.new(title: "HurricaneSeb")
-#       # @valid_event = Event.new(title: 'A Great, valid event' )
-#       # @invalid_event = Event.new(title: 'A terrible, invalid event' )
-
-#       @charityA = Charity.create(name: "A")
-#       @charityB = Charity.create(name: "B")
-#       @charityC = Charity.create(name: "C")
-#       @charityD = Charity.create(name: "D")
- 
-#       @user = User.create(name: "User")
-#       @host = Host.create(user: @user)
-
-#       @event = Event.new(title: 'A Event', host_id: @host, goal: 1000, event_start: Time.new(2016, 8, 12, 10), event_end: Time.new(2016, 8, 12, 14) ) 
-    
-#     end
-    
-    ###
-
