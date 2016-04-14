@@ -16,10 +16,15 @@ ActiveRecord::Base.connection.tables.each do |table|
   ActiveRecord::Base.connection.execute("DELETE FROM #{table}")
 end
 
-20.times do
-  Cause.create(name: Faker::Lorem.sentence)
+cause = ["Education", "Environment", "Public Health", "Human and Civil Rights", "Religion", "Wildlife Conservation", "Homeless Service", "Animal Rights"]
+cause.each do |type|
+  Cause.create(name: type)
+end 
 
-end
+charities = ["Direct Relief", "MAP International", "Samaritan's Purse", "Catholic Medical Mission Board", "AmeriCare", "The Conservation Fund", "United States Fund for UNICEF", "Natural Resources Defense Council", "Doctors Without Borders, USA" ]
+charities.each do |charity| 
+  Charity.create(name: charity)
+end 
 
 1000.times do
   User.create(name: Faker::Name.name, email: Faker::Internet.safe_email, password: Faker::Internet.password)
@@ -27,40 +32,39 @@ end
 
 i=0
 100.times do 
-  Host.create(user: User.all[i])
-  i+=1
+  Host.create(user: User.all[i]) 
+  j=0
+  5.times do
+  Donor.create(user: User.all[i+j])
+  j+=1
+  end 
+  i+=5
 end
+#Donor should belong to one user
 
-Charity.create(name: "Direct Relief") 
-Charity.create(name: "MAP International")  
-Charity.create(name: "Samaritan's Purse")  
-Charity.create(name: "Catholic Medical Mission Board")
-Charity.create(name: "AmeriCares")  
-Charity.create(name: "The Rotary Foundation of Rotary International") 
-Charity.create(name: "The Conservation Fund") 
-Charity.create(name: "United States Fund for UNICEF") 
-Charity.create(name: "Natural Resources Defense Council") 
-Charity.create(name: "Doctors Without Borders, USA")
 
-250.times do 
+100.times do 
   i = rand(1..12) 
   j = rand(1..30)
-  k = rand(13..24)
+  k = rand(10..100)
+  start_time = Time.new(2016, i, j, i)
   event = Event.new(title: Faker::Book.title,
-                    event_start: Time.new(2016, i, j, i), 
-                    event_end: Time.new(2016, i, j, k), 
+                    event_start: start_time,
+                    event_end: start_time + i.days,
                     host: Host.all.sample,
                     funded: false, 
                     goal: rand(10..1000)
-                  );  
+                  )
+  event.created_at = Time.now < start_time ? (Time.now - j.days) : (start_time - j.days)
   event.charities.push(Charity.all.sample)
   event.save
-  # EventCharity.create(event: event, charity: Charity.all.sample) 
+     k.times do 
+      pledge = Pledge.new(event: event, donor: Donor.all.sample , amount: rand(5..100), status: "pending")
+      pledge.created_at = rand(event.created_at..event.event_end)
+      pledge.save
+    end 
 end 
 
-1000.times do 
-  Pledge.create(event: Event.all.sample, donor: Donor.create(user: User.all.sample), amount: rand(5..100), status: "pending")
-end 
 
 Charity.all.each do |charity|
   3.times do 
