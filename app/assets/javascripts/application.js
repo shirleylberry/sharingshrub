@@ -15,7 +15,9 @@
 //= require braintree_sandbox_payment
 //= require underscore
 //= require gmaps
-//= require markerclusterer
+//= require liquidFillGauge
 //= require d3
+//= require dimple
+//= require markerclusterer
 //= require_tree .
 
