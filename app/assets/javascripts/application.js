@@ -19,5 +19,7 @@
 //= require underscore
 //= require gmaps
 //= require markerclusterer
+//= require liquidFillGauge
+//= require dimple
 //= require_tree .
 

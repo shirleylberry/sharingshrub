@@ -60,7 +60,7 @@ end
   event.save
      k.times do 
       pledge = Pledge.new(event: event, donor: Donor.all.sample , amount: rand(5..100), status: "pending")
-      pledge.created_at = rand(event.created_at..event.event_end)
+      pledge.created_at = rand(event.created_at..Time.now)
       pledge.save
     end 
 end 

@@ -1,5 +1,4 @@
-$(document).on('read page:load', function() {
-  
+$(document).on('ready page:load', function() {
   var map;
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -7,9 +6,7 @@ $(document).on('read page:load', function() {
       zoom: 8
     });
   }
-
   initMap();
-  
 });
 
 

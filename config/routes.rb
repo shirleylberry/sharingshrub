@@ -2,11 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
       resources :causes
       resources :charities
-
       resources :events do
         resources :pledges   
   end 
-
+  get '/events/:id/growth_curve' => 'events#growth_curve'
   root 'pages#home'
 
   # The priority is based upon order of creation: first created -> highest priority.

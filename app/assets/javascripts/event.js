@@ -1,13 +1,11 @@
-$(document).on('ready page:load', function() {
+$(".events.new").ready(function() {
   
   $("#geocode-address").click(function (e) {
     e.preventDefault();
     e.stopPropagation();
-    var address = $('#event_address').val().replace(/\s/g, '+');
-        // url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + "AIzaSyAiqpXlxW1KYp2cO93kgef_MC79S33qImc" ;
-
-    var geocoder;
-    var map;
+    var address = $('#event_address').val().replace(/\s/g, '+'),
+        geocoder,
+        map;
 
     function initialize() {
       geocoder = new google.maps.Geocoder();
@@ -31,7 +29,6 @@ $(document).on('ready page:load', function() {
           $('#event_longitude').val( results[0].geometry.location.lng() )
           $('#event_latitude').val( results[0].geometry.location.lat() )
           $('#event_city').val( results[0].formatted_address.split(",")[1].slice(1) )
-
         } else {
           alert("Whoops, please enter a valid address: (i.e. 123 Main Street)");
         }
@@ -39,18 +36,40 @@ $(document).on('ready page:load', function() {
     }
     $('#map-box').html('<h4>Double check your event address!</h4><div id="mini-map" style="width: 100%; height: 250px;"></div>')
     codeAddress(address);
-  })
-
-  // var config1 = liquidFillGaugeDefaultSettings();
-  // config1.circleColor = "#FF7777";
-  // config1.textColor = "#FF4444";
-  // config1.waveTextColor = "#FFAAAA";
-  // config1.waveColor = "#FFDDDD";
-  // config1.circleThickness = 0.2;
-  // config1.textVertPosition = 0.2;
-  // config1.waveAnimateTime = 1000;
-
-
-  // var percentage = $('div.funding_chart').attr('percent')
-  // var gauge2 = loadLiquidFillGauge("event_fundraising_fillgauge", parseInt(percentage), config1);   
+  });
 });
+
+$('.events.show').ready(function () {
+    //Draws Gauge Chart
+  var config = liquidFillGaugeDefaultSettings();
+  config.circleColor = "#FF7777";
+  config.textColor = "#FF4444";
+  config.waveTextColor = "#FFAAAA";
+  config.waveColor = "#FFDDDD";
+  config.circleThickness = 0.2;
+  config.textVertPosition = 0.2;
+  config.waveAnimateTime = 1000;
+
+  var percentage = $('div.funding_chart').attr('percent')
+  var gauge = loadLiquidFillGauge("event_fundraising_fillgauge", parseInt(percentage), config);
+
+  var event_id = $('div.funding_chart').attr('id')
+  $.ajax({
+    mehtod: "GET",
+    url: "/events/"+ event_id +"/growth_curve"
+  }).success(function(data){
+      var svg = dimple.newSvg("#growth_chart", 590, 400);       
+      var growth_chart = new dimple.chart(svg, data);
+      growth_chart.setBounds(60, 30, 500, 300);
+      var x = growth_chart.addCategoryAxis("x", "period")
+      growth_chart.addMeasureAxis("y", "ratio");
+      // Min price will be green, middle price yellow and max red
+      growth_chart.addColorAxis("Price", ["green", "yellow", "red"]);
+      // Add a thick line with markers
+      var lines = growth_chart.addSeries(null, dimple.plot.line); 
+      lines.lineWeight = 5;
+      lines.lineMarkers = true;
+      // Draw the chart
+      growth_chart.draw();
+    })
+})

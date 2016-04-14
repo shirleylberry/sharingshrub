@@ -21,6 +21,13 @@ class EventsController < ApplicationController
     set_event
   end 
 
+  def growth_curve
+    @event = Event.find(params[:id])
+    data = @event.growth_curve.compact
+    render json: data 
+  end
+
+
   def edit
     set_event
   end
@@ -34,6 +41,8 @@ class EventsController < ApplicationController
       render 'edit' 
    end  
   end
+
+ 
 
   private
 
