@@ -25,6 +25,16 @@ class EventsController < ApplicationController
     set_event
   end
 
+  def update
+    @event = set_event
+    @event.update(event_attributes)
+    if  @event.save
+     redirect_to @event
+   else
+      render 'edit' 
+   end  
+  end
+
   private
 
   def event_attributes

@@ -35,6 +35,10 @@ class Donor < ActiveRecord::Base
   def favorite_charity
   end
 
+  def favorite_cause
+    Pledge.select('causes.id AS id, causes.name').joins(:donor, :event => {:charities => :causes}).where('donors.id = ?', self.id).group('causes.name').order('COUNT(pledges.id) DESC').limit(1)
+  end
+
   # by frequency of donating
   # do it frequency in the last few (3?) months
   def self.top_donors(time_period)
