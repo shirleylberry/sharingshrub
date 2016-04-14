@@ -70,9 +70,17 @@ class Event < ActiveRecord::Base
     self.where('event_start > ?', Time.now).limit(limit)
   end 
 
+  def send_emails_if_funded
+    if self.funded
+      EventMailer.event_funded_donors_email(self).deliver_now
+      EventMailer.event_funded_host_email(self).deliver_now
+    end
+  end
+
   # EVENT MODEL METHODS
   def update_funded_status_if_goal_reached
     self.update_attribute(:funded, true) if self.total_raised_to_date >= self.goal
+    self.send_emails_if_funded
   end
   
   def total_raised_to_date
@@ -104,7 +112,6 @@ class Event < ActiveRecord::Base
     pledge_data
   end
 
-
   #ex.[{period: 1, ratio: 12.234}, {period: 2, ratio:23.42 }, {period:3, ratio:42.5}]
   def growth_curve
     start_time = self.created_at
@@ -129,14 +136,8 @@ class Event < ActiveRecord::Base
     growth_data
   end
 
-
-
-
-
-
   def self.upcoming_events(limit: 25)
     self.where('event_start > ?', Time.now).limit(25)
-
   end
 
   def is_on?(start_date, end_date)

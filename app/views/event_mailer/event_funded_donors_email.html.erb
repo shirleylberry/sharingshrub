@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>The event <%= @event.title%> has been successfully funded!</h1>
+    <p>You and <%= @event.pledges.count %> pledged to help this event reach its goal of $<%= @event.goal%>.</p>
+    <p>You're supporting the following charities: 
+      <ul>
+      <% @event.charities.each do |charity| %>
+        <li><%= charity.name %></li>
+      <% end %>
+      </p>
+    <p>This event is scheduled to start <%= @event.event_start%></p>
+    <p>
+      Click <a href = <%= @url%>>here</a> to view the event.
+    </p>
+    <p>Thanks for supporting this event and have a great day!</p>
+  </body>
+</html>

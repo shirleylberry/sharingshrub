@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Thanks for making a pledge of $<%= @pledge.amount %> to <%= @event.title%></h1>
+    <p>This event is scheduled to start <%= @event.event_start%></p>
+    <p>
+      Click <a href = <%= @url%>>here</a> to view the event.
+    </p>
+    <p>We'll let you know at least one week before the event's start whether it's been funded.</p>
+    <p>Thanks for pledging to this event and have a great day!</p>
+  </body>
+</html>
