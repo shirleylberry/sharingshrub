@@ -1,5 +1,4 @@
- $(document).ready(function() {
-  
+$(document).on('ready page:load', function() {
   var map;
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -7,8 +6,7 @@
       zoom: 8
     });
   }
-
   initMap();
-})
+});
 
 

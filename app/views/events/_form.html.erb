@@ -1,36 +1,42 @@
-<%= form_for event do |f| %>
-  <%= f.label :event_title, "Name your event:" %>
-  <%= f.text_field :title %>   
-  <%= f.label :address, "Address:" %>
-  <%= f.text_field :address %> 
-  <button id="geocode-address">Lookup</button>
+<div class="row">
+  <div class="col-md-7">
+    <%= form_for event do |f| %>
+      <%= f.label :event_title, "Name your event:" %>
+      <%= f.text_field :title %>
+      <br>   
+      <%= f.label :address, "Address:" %>
+      <%= f.text_field :address %> 
+      <button id="geocode-address">Lookup</button>
 
-  <%= f.hidden_field :latitude %>
-  <%= f.hidden_field :longitude %>
+      <%= f.hidden_field :latitude %>
+      <%= f.hidden_field :longitude %>
+      <%= f.hidden_field :city %>
 
 
-  <h3>Select up to three charities:</h3>
-  <%= f.collection_check_boxes :charity_ids, Charity.all, :id, :name do |b| %>
-    <%= b.label class:"label-checkbox" do%>
-      <%= b.check_box + " " + b.text %>
+      <h3>Select up to three charities:</h3>
+      <%= f.collection_check_boxes :charity_ids, Charity.all, :id, :name do |b| %>
+        <%= b.label class:"label-checkbox" do%>
+          <%= b.check_box + " " + b.text %>
+        <% end %>
+      <% end %>
+
+      <p><%= f.label :goal %>
+      <%= f.number_field :goal, placeholder: "$10,000" %></p>
+      <p><%= label_tag :event_start, "Start Date" %>
+      <%= f.date_field :event_start_date_part %>
+      <%= label_tag :event_start, "Start Time" %>
+      <%= f.time_field :event_start_time_part, :ignore_date => true %></p>
+      <p><%= label_tag :event_end, "End Date" %>
+      <%= f.date_field :event_end_date_part %>
+      <%= label_tag :event_end, "End Time" %>
+      <%= f.time_field :event_end_time_part, :ignore_date => true %></p>
+
+      <p><%= f.label :funded_deadline %>
+      <%= f.date_field :funded_deadline %></p>
+      <%= f.submit class: "btn btn-success" %>
     <% end %>
-  <% end %>
-
-  <p><%= f.label :goal %>
-  <%= f.number_field :goal, placeholder: "$10,000" %></p>
-  <p><%= label_tag :event_start, "Start Date" %>
-  <%= f.date_field :event_start_date_part %>
-  <%= label_tag :event_start, "Start Time" %>
-  <%= f.time_field :event_start_time_part, :ignore_date => true %></p>
-  <p><%= label_tag :event_end, "End Date" %>
-  <%= f.date_field :event_end_date_part %>
-  <%= label_tag :event_end, "End Time" %>
-  <%= f.time_field :event_end_time_part, :ignore_date => true %></p>
-
-  <p><%= f.label :funded_deadline %>
-  <%= f.date_field :funded_deadline %></p>
-  <%= f.submit class: "btn btn-success" %>
-<% end %>
-
-
- 
+  </div>
+  <div class="col-md-5">
+      <div id="map-box"></div>
+  </div>
+</div>

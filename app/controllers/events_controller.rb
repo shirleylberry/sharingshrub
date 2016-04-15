@@ -54,6 +54,10 @@ class EventsController < ApplicationController
                                  :event_end_date_part, 
                                  :event_end_time_part,
                                  :funded_deadline,
+                                 :address,
+                                 :latitude,
+                                 :longitude,
+                                 :city,
                                  :charity_ids => []
                                 )
   end 
