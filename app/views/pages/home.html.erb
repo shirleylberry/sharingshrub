@@ -17,7 +17,7 @@
             <p>$<%= Pledge.distributed_to_date %> raised for charity.</p>
         </div>
 
-        <!-- CHARITIES REICING THE MOST FUNDING -->
+        <!-- CHARITIES RECEIVING THE MOST FUNDING -->
         <h3>Top Pledged Charities:</h3>
         <% Charity.five_most_pledged_charities.each do |charity| %>
             <div class="list-group-item-heading"><%= link_to charity.name, charity_path(charity) %></div>

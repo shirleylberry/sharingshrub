@@ -11,8 +11,8 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
 //= require jquery-readyselector
 //= require braintree_sandbox_payment
 //= require d3
@@ -21,5 +21,6 @@
 //= require markerclusterer
 //= require liquidFillGauge
 //= require dimple
+//= require turbolinks
 //= require_tree .
 

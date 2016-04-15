@@ -8,7 +8,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_attributes)
-    @host = Host.find_or_create_by(user: current_user)
+    @host = Host.find_or_create_by(user_id: current_user.id)
     @event.host = @host
    if  @event.save
      redirect_to @event
@@ -19,6 +19,18 @@ class EventsController < ApplicationController
 
   def show
     set_event
+  end 
+
+  def growth_curve
+    @event = Event.find(params[:id])
+    data = @event.growth_curve.compact
+    render json: data 
+  end
+
+  def bar_chart
+    @event = Event.find(params[:id])
+    data = @event.pledges_over_time(@event.created_at, Time.now).compact
+    render json: data 
   end 
 
   def edit

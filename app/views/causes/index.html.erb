@@ -1,0 +1,7 @@
+
+Show your good will to the world!
+
+<ul><% @causes.each do |cause| %>
+<li><%= link_to cause_path(cause) do cause.name end %></li>
+<% end %>
+</ul>

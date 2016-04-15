@@ -41,7 +41,7 @@ $(".events.new, .events.create").ready(function(){
   });
 });
 
-$('.events.show').ready(function () {
+$('.events.show').ready(function(){
   //Draws Gauge Chart
   var config = liquidFillGaugeDefaultSettings();
   config.circleColor = "#FF7777";
@@ -55,6 +55,8 @@ $('.events.show').ready(function () {
   var percentage = $('div.funding_chart').attr('percent')
   var gauge = loadLiquidFillGauge("event_fundraising_fillgauge", parseInt(percentage), config);
   var event_id = $('body').find('#funding_chart').attr('name')
+
+  //Draws Growth Chart
   $.ajax({
     mehtod: "GET",
     url: "/events/" + event_id + "/growth_curve"
@@ -64,7 +66,6 @@ $('.events.show').ready(function () {
     growth_chart.setBounds(60, 30, 500, 300);
     var x = growth_chart.addCategoryAxis("x", "period")
     growth_chart.addMeasureAxis("y", "ratio");
-    // Min price will be green, middle price yellow and max red
     growth_chart.addColorAxis("ratio", ["green", "yellow", "red"]);
     // Add a thick line with markers
     var lines = growth_chart.addSeries(null, dimple.plot.line); 
@@ -73,5 +74,20 @@ $('.events.show').ready(function () {
     // Draw the chart
     growth_chart.draw();
   })
+  
+  //Draws Bar Chart
+  $.ajax({ 
+  method: "GET",
+  url: "/events/" + event_id + "/bar_chart"
+ }).success(function(data){
+  var svg = dimple.newSvg("#bar_chart", 590, 400);
+  var bar_chart = new dimple.chart(svg, data);
+  bar_chart.setBounds(60, 30, 510, 305)
+  var x = bar_chart.addCategoryAxis("x", "date");
+  x.addOrderRule("Date");
+  bar_chart.addMeasureAxis("y", "amount");
+  bar_chart.addSeries(null, dimple.plot.bar);
+  bar_chart.draw();
+});
 
 });

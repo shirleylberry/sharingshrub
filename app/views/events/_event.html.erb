@@ -35,13 +35,14 @@
 
         <h4>Deadline to Fund this Event: <%= event.funded_deadline %></h4>
     </div>
-
-    <div id="funding_chart" name="<%= event.id %>">
+    <div id="funding_chart" name=" <%= event.id %> ">
         <svg id="event_fundraising_fillgauge" width="30%" height="200"></svg>
     </div>
     <div class="growth_chart" id="growth_chart" >
         <svg id="growth_chart"></svg>
     </div>
-
+    <div class="bar_chart" id="bar_chart" >
+        <svg id="bar_chart"></svg>
+    </div>
 </body>
 

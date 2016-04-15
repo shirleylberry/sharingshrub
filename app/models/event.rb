@@ -71,16 +71,16 @@ class Event < ActiveRecord::Base
   end 
 
   def send_emails_if_funded
-    if self.funded
-      EventMailer.event_funded_donors_email(self).deliver_now
-      EventMailer.event_funded_host_email(self).deliver_now
-    end
+    EventMailer.event_funded_donors_email(self).deliver_now
+    EventMailer.event_funded_host_email(self).deliver_now
   end
 
   # EVENT MODEL METHODS
   def update_funded_status_if_goal_reached
-    self.update_attribute(:funded, true) if self.total_raised_to_date >= self.goal
-    self.send_emails_if_funded
+    if self.total_raised_to_date >= self.goal && self.funded == false
+      self.update_attribute(:funded, true) 
+      self.send_emails_if_funded
+    end
   end
   
   def total_raised_to_date
@@ -92,7 +92,7 @@ class Event < ActiveRecord::Base
   end 
 
   def amt_short_of_goal
-    self.update_funded_status_if_goal_reached
+    # self.update_funded_status_if_goal_reached
     self.funded? ? 0 : self.goal - self.total_raised_to_date 
   end
   
@@ -100,7 +100,6 @@ class Event < ActiveRecord::Base
   # ex.[{date: Thu, 24 Mar 2016 05:00:00 +0000, amount: 20 }, {Fri, 25 Mar 2016 05:00:00 +0000=> 70 }]
   def pledges_over_time(start_time, stop_time)
     day_interval = (start_time.to_i..stop_time.to_i).step(24.hours)
-    
     pledge_data = []
     day_interval.each_with_index do |day, i| 
       pledge_data[i] = Hash.new
