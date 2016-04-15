@@ -48,7 +48,7 @@
         <% end %>
 
         <!-- DYNAMIC LIST OF EVENTS BASED ON USER INTERESTS -->
-        <% if current_user.events_to_checkout %>
+        <% if current_user %>
             <h3>Based on your interests:</h3>
             <% current_user.events_to_checkout.each do |event| %>
                 <%= link_to event_path(event) do %>

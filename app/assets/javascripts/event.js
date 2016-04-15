@@ -1,4 +1,4 @@
-$(".events.new").ready(function() {
+$(".events.new, .events.create").ready(function(){
   
   $("#geocode-address").click(function (e) {
     e.preventDefault();
@@ -16,6 +16,7 @@ $(".events.new").ready(function() {
       }
       map = new google.maps.Map(document.getElementById("mini-map"), mapOptions);
     }
+
     function codeAddress(address) {
       initialize()
       geocoder.geocode( { 'address': address}, function(results, status) {
@@ -34,13 +35,14 @@ $(".events.new").ready(function() {
         }
       });
     }
+
     $('#map-box').html('<h4>Double check your event address!</h4><div id="mini-map" style="width: 100%; height: 250px;"></div>')
     codeAddress(address);
   });
 });
 
 $('.events.show').ready(function () {
-    //Draws Gauge Chart
+  //Draws Gauge Chart
   var config = liquidFillGaugeDefaultSettings();
   config.circleColor = "#FF7777";
   config.textColor = "#FF4444";
@@ -52,24 +54,24 @@ $('.events.show').ready(function () {
 
   var percentage = $('div.funding_chart').attr('percent')
   var gauge = loadLiquidFillGauge("event_fundraising_fillgauge", parseInt(percentage), config);
-
-  var event_id = $('div.funding_chart').attr('id')
+  var event_id = $('body').find('#funding_chart').attr('name')
   $.ajax({
     mehtod: "GET",
-    url: "/events/"+ event_id +"/growth_curve"
-  }).success(function(data){
-      var svg = dimple.newSvg("#growth_chart", 590, 400);       
-      var growth_chart = new dimple.chart(svg, data);
-      growth_chart.setBounds(60, 30, 500, 300);
-      var x = growth_chart.addCategoryAxis("x", "period")
-      growth_chart.addMeasureAxis("y", "ratio");
-      // Min price will be green, middle price yellow and max red
-      growth_chart.addColorAxis("Price", ["green", "yellow", "red"]);
-      // Add a thick line with markers
-      var lines = growth_chart.addSeries(null, dimple.plot.line); 
-      lines.lineWeight = 5;
-      lines.lineMarkers = true;
-      // Draw the chart
-      growth_chart.draw();
-    })
-})
+    url: "/events/" + event_id + "/growth_curve"
+  }).success(function(data) {
+    var svg = dimple.newSvg("#growth_chart", 590, 400);       
+    var growth_chart = new dimple.chart(svg, data);
+    growth_chart.setBounds(60, 30, 500, 300);
+    var x = growth_chart.addCategoryAxis("x", "period")
+    growth_chart.addMeasureAxis("y", "ratio");
+    // Min price will be green, middle price yellow and max red
+    growth_chart.addColorAxis("ratio", ["green", "yellow", "red"]);
+    // Add a thick line with markers
+    var lines = growth_chart.addSeries(null, dimple.plot.line); 
+    lines.lineWeight = 5;
+    lines.lineMarkers = true;
+    // Draw the chart
+    growth_chart.draw();
+  })
+
+});

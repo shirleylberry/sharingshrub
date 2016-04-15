@@ -39,11 +39,11 @@
 
 <h2>Title: <%= event.title %></h2>
 <h3>Goal: $ <%= event.goal %></h3>
-<div class = "funding_chart" id="<%= event.id %>">
-<svg id="event_fundraising_fillgauge" width="30%" height="200"></svg>
+<div id="funding_chart" name="<%= event.id %>">
+    <svg id="event_fundraising_fillgauge" width="30%" height="200"></svg>
 </div>
-<div class = "growth_chart" id="growth_chart" >
-<svg id="growth_chart"></svg>
+<div class="growth_chart" id="growth_chart" >
+    <svg id="growth_chart"></svg>
 </div>
 
 </body>
