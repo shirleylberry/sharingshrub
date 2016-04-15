@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  skip_before_action :authenticate_user!, only: [:show]
+  skip_before_action :authenticate_user!, only: [:show], except: [:growth_curve]
 
   def new
     @event = Event.new
@@ -8,7 +8,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_attributes)
-    @host = Host.find_or_create_by(user: current_user)
+    @host = Host.find_or_create_by(user_id: current_user.id)
     @event.host = @host
    if  @event.save
      redirect_to @event
