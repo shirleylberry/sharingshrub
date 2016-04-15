@@ -55,6 +55,7 @@ $('.events.show').ready(function () {
   var percentage = $('div.funding_chart').attr('percent')
   var gauge = loadLiquidFillGauge("event_fundraising_fillgauge", parseInt(percentage), config);
   var event_id = $('body').find('#funding_chart').attr('name')
+
   $.ajax({
     mehtod: "GET",
     url: "/events/" + event_id + "/growth_curve"
