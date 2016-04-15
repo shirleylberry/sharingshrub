@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  skip_before_action :authenticate_user!, only: [:show]
+  skip_before_action :authenticate_user!, only: [:show, :growth_curve, :map_events]
 
   def new
     @event = Event.new
@@ -21,13 +21,6 @@ class EventsController < ApplicationController
     set_event
   end 
 
-  def growth_curve
-    @event = Event.find(params[:id])
-    data = @event.growth_curve.compact
-    render json: data 
-  end
-
-
   def edit
     set_event
   end
@@ -42,7 +35,16 @@ class EventsController < ApplicationController
    end  
   end
 
- 
+  def growth_curve
+    @event = Event.find(params[:id])
+    data = @event.growth_curve.compact
+    render json: data 
+  end
+
+  def map_events
+    @events = Event.upcoming_events(limit: 50)
+    render json: @events
+  end
 
   private
 

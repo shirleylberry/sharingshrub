@@ -22,7 +22,7 @@ class Pledge < ActiveRecord::Base
 
   def self.distributed_to_date
     # For the sake of advertising
-    Pledge.where(status: 'paid').sum(:amount) + 20000
+    Pledge.where(status: 'paid').sum(:amount) + 9762
   end
 
 end

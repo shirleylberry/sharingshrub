@@ -1,6 +1,8 @@
+
 <div class="col-sm-4 col-sm-offset-4">  
   <h2 class="text-center">Log in</h2>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class:"form-horizontal center" }) do |f| %>
+    <%= devise_error_messages! %>
     <div class="field">
       <%= f.label :email %><br />
       <%= f.email_field :email, autofocus: true, class: "form-control" %> <br>

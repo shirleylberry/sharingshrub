@@ -6,19 +6,6 @@
         <div style="width: 100%">
             <div id="map" style="width: 100%; height: 400px"></div>
         </div>
-        
-        <ul>
-        <!-- MAIN CONTENT AREA UPCOMING EVENTS -->
-        <% Event.upcoming_events.each do |event| %>
-            <li><%= link_to event.title, event_path(event) %>
-                <ul>
-                    <li>Donations to date: $<%= event.total_raised_to_date.to_i %></li>
-                    <li>Left to reach goal: $<%= event.amt_short_of_goal.to_i %></li>
-                </ul>
-            </li>
-        <% end %>
-        </ul> 
-        <div><%= link_to "More Events", events_path %></div>
     </div>
 
     <!-- RIGHT SIDEBAR -->
@@ -57,6 +44,22 @@
             <% end %>
         <% end %>
 
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <h3>Upcoming Events Near You:</h3>
+        <!-- MAIN CONTENT AREA UPCOMING EVENTS -->
+        <% Event.upcoming_events(limit: 7).each do |event| %>
+            <div id="bottom-left-content">
+                <h4><%= link_to event.title, event_path(event) %></h4>
+                <ul>
+                    <li>Donations to date: $<%= event.total_raised_to_date.to_i %></li>
+                    <li>Left to reach goal: $<%= event.amt_short_of_goal.to_i %></li>
+                </ul>
+            </div>
+        <% end %>
+        <div><%= link_to "More Events", events_path %></div>
     </div>
 </div>
 

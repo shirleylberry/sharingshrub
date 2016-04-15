@@ -6,6 +6,8 @@ Rails.application.routes.draw do
         resources :pledges   
   end 
   get '/events/:id/growth_curve' => 'events#growth_curve'
+  # Returns events data for map on homepage load
+  get '/map_events' => 'events#map_events', as: 'map_events'
   root 'pages#home'
 
   # The priority is based upon order of creation: first created -> highest priority.

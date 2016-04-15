@@ -66,7 +66,7 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.upcoming_events(limit: 25)
+  def self.upcoming_events(limit: 5)
     self.where('event_start > ?', Time.now).limit(limit)
   end 
 

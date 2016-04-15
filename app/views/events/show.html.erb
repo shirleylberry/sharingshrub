@@ -1,1 +1,5 @@
+<% if flash[:success] %>
+    <div class="success-notice"><%= flash[:success] %></div>
+<% end %>
+
 <%= render 'event', event: @event %>

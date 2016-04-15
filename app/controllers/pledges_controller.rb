@@ -6,20 +6,15 @@ class PledgesController < ApplicationController
 
   def create
     amount = pledge_params[:amount]
-    result = Braintree::Transaction.sale( 
-              :amount => amount,
-              :payment_method_nonce => "fake-valid-nonce",
-              :options => {
-                :submit_for_settlement => true
-             }
-            )
+    result = Braintree::Transaction.sale(:amount => amount, :payment_method_nonce => "fake-valid-nonce", :options => {:submit_for_settlement => true})
     @pledge = Pledge.new(pledge_params_with_transaction_id(result))
     @pledge.donor = Donor.find_or_create_by(user: current_user)
     @pledge.event = set_event
     if @pledge.save
         @pledge.event.update_funded_status_if_goal_reached
         PledgeMailer.pledge_creation_email(@pledge).deliver_now
-        redirect_to event_path(set_event)
+        flash[:success] = "We've successfully recieved your pledge of $#{@pledge.amount}. Thank you, #{current_user.username}!"
+        redirect_to event_path(@pledge.event)
     else
         render 'new'
     end

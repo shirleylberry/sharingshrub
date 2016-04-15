@@ -20,3 +20,8 @@
     color: #5CB85C;
     margin: 0;
 }
+
+#bottom-left-content {
+    text-align: left;
+    padding-left: 0;
+}

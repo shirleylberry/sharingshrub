@@ -30,21 +30,18 @@
 
         <%= link_to "Make a Pledge", new_event_pledge_path(event), class: "btn btn-success" %>
 
-        <h3>Event Start: <%= event.event_start %></h3>
-        <h3>Event End: <%= event.event_end %></h3>
+        <h4>Event Start: <%= event.event_start.strftime('%A, %B %d at %I:%M%p') %></h4>
+        <h4>Event End: <%= event.event_end.strftime('%A, %B %d at %I:%M%p') %></h4>
 
         <h4>Deadline to Fund this Event: <%= event.funded_deadline %></h4>
     </div>
-<body>
 
-<h2>Title: <%= event.title %></h2>
-<h3>Goal: $ <%= event.goal %></h3>
-<div id="funding_chart" name="<%= event.id %>">
-    <svg id="event_fundraising_fillgauge" width="30%" height="200"></svg>
-</div>
-<div class="growth_chart" id="growth_chart" >
-    <svg id="growth_chart"></svg>
-</div>
+    <div id="funding_chart" name="<%= event.id %>">
+        <svg id="event_fundraising_fillgauge" width="30%" height="200"></svg>
+    </div>
+    <div class="growth_chart" id="growth_chart" >
+        <svg id="growth_chart"></svg>
+    </div>
 
 </body>
 

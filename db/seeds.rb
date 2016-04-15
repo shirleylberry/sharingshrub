@@ -52,7 +52,11 @@ end
                     event_start: start_time,
                     event_end: start_time + i.days,
                     host: Host.all.sample,
-                    funded: false, 
+                    funded: false,
+                    address: '#{rand(10..1000)} Broadway Ave', 
+                    city: 'New York City', 
+                    latitude: rand(40.47399..40.917577), 
+                    longitude: rand(73.700009..74.25909) * -1, 
                     goal: rand(10..1000)
                   )
   event.created_at = Time.now < start_time ? (Time.now - j.days) : (start_time - j.days)
