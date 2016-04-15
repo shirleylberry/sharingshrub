@@ -1,10 +1,18 @@
 <div>
   <%= render 'cause', cause: @cause %>
+
+  <p>Upcoming Events:</p>
   <% @cause.upcoming_events.each do |event| %>
     <%= link_to event_path(event) do %>
       <p><%= event.title %></p>
       <p><%= event.event_start %></p> 
     <% end %>
   <% end %> 
+
+ <p>Charity</p>
+ <% @cause.charities.each do |charity| %>
+ <li><%= link_to charity_path(charity) do charity.name end %></li> 
+ <% end %>  
+
 </div>
 
