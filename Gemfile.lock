@@ -253,6 +253,7 @@ DEPENDENCIES
   letter_opener
   mailcatcher
   multiparameter_date_time
+  nokogiri
   pry-byebug
   rails (= 4.2.5.2)
   rspec-rails (~> 3.0)
