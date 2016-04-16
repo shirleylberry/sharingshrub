@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :events do
         resources :pledges   
   end 
+  get '/users/:id/show' => 'users#show', as: :users
   get '/events/:id/growth_curve' => 'events#growth_curve'
   get '/events/:id/bar_chart' => 'events#bar_chart'
   root 'pages#home'
