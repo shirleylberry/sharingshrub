@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :events do
         resources :pledges   
   end 
+  get '/users/:id/show' => 'users#show', as: :users
   get '/events/:id/growth_curve' => 'events#growth_curve'
   # Returns events data for map on homepage load
   get '/map_events' => 'events#map_events', as: 'map_events'

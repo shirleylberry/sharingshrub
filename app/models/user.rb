@@ -38,8 +38,8 @@ class User < ActiveRecord::Base
     self.id == event.host.user.id
   end
 
-  def is_donor(event)
-    event.donors.include?(self.donor)
+  def username
+    self.name ? self.name.split(' ')[0] : self.email.split('@')[0]
   end
 
   def events_to_checkout
@@ -51,8 +51,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def username
-    self.email.split('@')[0]
-  end
+
+
 
 end

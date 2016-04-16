@@ -20,11 +20,12 @@ class Donor < ActiveRecord::Base
     Pledge.where('donor_id = ?', self.id).sum('amount')
   end
 
-  def pledged_events
-    Event.joins(:pledges).where('pledges.donor_id = ?', self.id)
-  end
+  def pledged_amount(event)
+    Pledge.select(:amount).where('donor_id = ? AND event_id = ? ', self, event)
+  end 
 
   def pledges_by_cause(cause)
+    Pledge.select(:amount).joins(:causes).where('cause_id = ? AND donor_id = ?', cause, donor)
   end
 
   def self.top_supports_in_array(cause)

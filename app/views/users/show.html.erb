@@ -1,0 +1,39 @@
+This is <%= @user.name %>'s show page 
+<p>Event History:</p>
+
+<div class = 'hosted_events'>
+<p>Events that <%= @user.username %> hosted </p>
+    
+<% if @user.host %> 
+    <ul><%= @user.events.each do |event| %> 
+        <li><%= link_to event_path(event) do %>
+            <%= event.title %>
+            <%= event.event_start %> 
+            <% end %></li> 
+        <% end %>
+    </ul>
+ <% else %> 
+    <%= "This user hasn't hosted yet" %>   
+ <% end %>
+  
+</div>
+
+<div class = 'pledged_events'>
+<p>Events that <%= @user.username %> supported </p>
+ 
+ <% if @user.donor %> 
+    <ul><%= @user.donor.events.each do |event| %> 
+        <li><%= link_to event_path(event) do %>
+            <%= event.title %> : Pledged
+            $<%= @user.donor.pledged_amount(event).first.amount %> 
+             <%= event.event_start%> </li>
+             <% end %>
+         <% end %>
+     </ul>
+ <% else %> 
+    <%= "This user hasn't hosted yet" %>   
+ <% end %>
+</div>
+
+
+
