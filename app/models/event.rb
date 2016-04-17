@@ -95,44 +95,48 @@ class Event < ActiveRecord::Base
     # self.update_funded_status_if_goal_reached
     self.funded? ? 0 : self.goal - self.total_raised_to_date 
   end
+
+  def self.number_of_events(cause)
+    joins(:causes).where(cause: cause).count
+  end 
   
 
-  # ex.[{date: Thu, 24 Mar 2016 05:00:00 +0000, amount: 20 }, {Fri, 25 Mar 2016 05:00:00 +0000=> 70 }]
-  def pledges_over_time(start_time, stop_time)
-    day_interval = (start_time.to_i..stop_time.to_i).step(24.hours)
-    pledge_data = []
-    day_interval.each_with_index do |day, i| 
+  # ex.[{date: Thu, 24 Mar 2016 05:00:00 +0000, amount: 20 }]
+  def pledges_over_time(start, stop)
+    start = start.to_i
+    stop = (stop + 1.day).to_i
+    interval = (start..stop).step(24.hours)
+    pledge_data = Array.new
+
+    interval.each_with_index do |day, i| 
       pledge_data[i] = Hash.new
-      datetime = DateTime.strptime(day.to_s, "%s") 
-      amount_to_date =  Pledge.where('created_at < ? AND event_id = ?', datetime, self.id).sum(:amount) 
-      pledge_data[i][:date] = datetime
+      amount_to_date =  Pledge.where('created_at <= ? AND event_id = ?', Time.at(day), self.id).sum(:amount) 
+      pledge_data[i][:date] = Time.at(day).strftime("%B %d")
       pledge_data[i][:amount] = amount_to_date
     end
     pledge_data
   end
 
-  #ex.[{period: 1, ratio: 12.234}, {period: 2, ratio:23.42 }, {period:3, ratio:42.5}]
+  #ex.[{period: 1, ratio: 12.234}]
   def growth_curve
     start_time = self.created_at
-    stop_time = self.event_end < Time.now ? self.event_end : Time.now
+    stop_time = self.event_end < Time.now ? self.event_end : Time.now  
+    daily_pledge_sum = self.pledges_over_time(start_time, stop_time).map { |total| total[:amount] }
+    growth_data = Array.new 
     
-    pledges_sum_each_day = self.pledges_over_time(start_time, stop_time).collect do |total|
-      total[:amount]
-    end   
-    growth_data = []  
     i = 1
-    while i < pledges_sum_each_day.count
+    while i < daily_pledge_sum.count
        growth_data[i] = Hash.new
-      if pledges_sum_each_day[i-1] == 0
-        calc = 0 
+      if daily_pledge_sum[i-1] == 0
+        growth_ratio = 0 
       else  
-        calc = ((pledges_sum_each_day[i] - (pledges_sum_each_day[i-1]).to_f)/ pledges_sum_each_day[i]) * 100    
+        growth_ratio = ((daily_pledge_sum[i] - (daily_pledge_sum[i-1]).to_f)/ daily_pledge_sum[i-1]) * 100    
       end  
         growth_data[i][:period] = i
-        growth_data[i][:ratio] = calc
+        growth_data[i][:ratio] = growth_ratio
         i += 1   
      end
-    growth_data
+    growth_data.compact
   end
 
   def self.upcoming_events(limit: 25)
@@ -157,8 +161,17 @@ class Event < ActiveRecord::Base
     self.funded_deadline >= Time.now
   end
 
-  def event_has_ended?
+  def self.list(cause_or_charity)
+    if cause_or_charity.class == Cause 
+    joins(:causes).where(causes: {id: cause_or_charity.id})
+    elsif cause_or_charity.class == Charity
+    joins(:charities).where(charities: {id: cause_or_charity.id})
+    else
+    none 
+    end 
   end
+
+
 end
 
 

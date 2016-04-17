@@ -22,5 +22,11 @@ class Host < ActiveRecord::Base
     Host.select('COUNT(events.id) AS events_thrown, hosts.*').joins(:events).where('events.created_at > ? ', time_period).group('hosts.id').order('events_thrown DESC').limit(num_hosts)
   end
 
+  def events_by(cause_or_charity)
+    self.events.list(cause_or_charity)
+  end 
+
+  
+   
 end
 

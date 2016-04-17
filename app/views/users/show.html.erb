@@ -1,38 +1,49 @@
 This is <%= @user.name %>'s show page 
 <p>Event History:</p>
 
-<div class = 'hosted_events'>
-<p>Events that <%= @user.username %> hosted </p>
-    
+<div class="row">
+<div class="col-md-5" id = 'hosted_events'>
+<h3>Hosted Events</h3>    
 <% if @user.host %> 
-    <ul><%= @user.events.each do |event| %> 
-        <li><%= link_to event_path(event) do %>
-            <%= event.title %>
-            <%= event.event_start %> 
-            <% end %></li> 
+ <% @user.events.each do |event| %> 
+    <li><%= link_to event_path(event) do %>
+         <%= event.title %>
+         <%= event.event_start.strftime("%B %d, %Y") %> 
+         <% end %></li> 
         <% end %>
-    </ul>
  <% else %> 
     <%= "This user hasn't hosted yet" %>   
  <% end %>
-  
 </div>
 
-<div class = 'pledged_events'>
-<p>Events that <%= @user.username %> supported </p>
- 
+
+<div class="col-md-5"  >
+<div class= 'pledged_events' userId = '<%=@user.id %>'>
+<h3>Pledged Events </h3>
  <% if @user.donor %> 
-    <ul><%= @user.donor.events.each do |event| %> 
+  <% @user.donor.events.each do |event| %> 
         <li><%= link_to event_path(event) do %>
-            <%= event.title %> : Pledged
-            $<%= @user.donor.pledged_amount(event).first.amount %> 
-             <%= event.event_start%> </li>
+            pledged $<%= @user.donor.pledged_amount(event).first.amount %> 
+            on <%= event.event_start.strftime("%B %d, %Y")%> 
+            for <%= event.title %>  </li>
              <% end %>
          <% end %>
-     </ul>
  <% else %> 
     <%= "This user hasn't hosted yet" %>   
  <% end %>
+</div>
+
+<div class="col-md-2" id = 'cause_chart'>
+<h3> Cause </h3>
+<div class="donut_chart" id="donut_chart" >
+        <svg id="chart"></svg>
+    </div>
+
+</div>
+
+
+<div class = 'row'>
+this is another row
 </div>
 
 

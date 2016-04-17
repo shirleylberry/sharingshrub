@@ -8,4 +8,10 @@ class UsersController < ApplicationController
     end 
   end 
 
+  def cause_chart
+    @user = User.find(params[:id])
+    data = @user.donor.pledged_amount_by_cause
+    render json: data 
+  end 
+
 end

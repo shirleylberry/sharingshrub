@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  skip_before_action :authenticate_user!, only: [:show, :growth_curve, :map_events]
+  skip_before_action :authenticate_user!, only: [:show], except: [:map_events, :growth_curve, :bar_chart]
 
   def new
     @event = Event.new
@@ -23,13 +23,13 @@ class EventsController < ApplicationController
 
   def growth_curve
     @event = Event.find(params[:id])
-    data = @event.growth_curve.compact
+    data = @event.growth_curve
     render json: data 
   end
 
   def bar_chart
     @event = Event.find(params[:id])
-    data = @event.pledges_over_time(@event.created_at, Time.now).compact
+    data = @event.pledges_over_time(@event.created_at, Time.now)
     render json: data 
   end 
 

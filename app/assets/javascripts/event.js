@@ -47,15 +47,15 @@ $('.events.show').ready(function(){
   config.circleColor = "#FF7777";
   config.textColor = "#FF4444";
   config.waveTextColor = "#FFAAAA";
-  config.waveColor = "#FFDDDD";
-  config.circleThickness = 0.2;
-  config.textVertPosition = 0.2;
-  config.waveAnimateTime = 1000;
+  config.waveColor = "#A9F5F2";
+  config.circleThickness = 0.1;
+  config.waveHeight = 0.6;
+  config.waveAnimateTime = 1500;
 
   var percentage = $('div.funding_chart').attr('percent')
   var gauge = loadLiquidFillGauge("event_fundraising_fillgauge", parseInt(percentage), config);
+  
   var event_id = $('body').find('#funding_chart').attr('name')
-
   //Draws Growth Chart
   $.ajax({
     mehtod: "GET",
@@ -73,13 +73,14 @@ $('.events.show').ready(function(){
     lines.lineMarkers = true;
     // Draw the chart
     growth_chart.draw();
-  })
+  });
   
   //Draws Bar Chart
   $.ajax({ 
   method: "GET",
   url: "/events/" + event_id + "/bar_chart"
  }).success(function(data){
+
   var svg = dimple.newSvg("#bar_chart", 590, 400);
   var bar_chart = new dimple.chart(svg, data);
   bar_chart.setBounds(60, 30, 510, 305)
