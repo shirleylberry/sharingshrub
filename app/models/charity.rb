@@ -6,6 +6,10 @@
 #  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  rating     :string
+#  mission    :string
+#  website    :string
+#  address    :string
 #
 
 class Charity < ActiveRecord::Base
