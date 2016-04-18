@@ -3,7 +3,7 @@
     <div class="col-md-8">
         <h3>Checkout and Support Upcoming Events!</h3>
         <!-- GOOGLE MAPS DIV -->
-        <div style="width: 100%">
+        <div class="map-container">
             <div id="map" style="width: 100%; height: 400px"></div>
         </div>
     </div>
@@ -33,21 +33,10 @@
                 <h3><button class="btn btn-success">CREATE EVENT</button></h3>
             <% end %>
         <% end %>
-
-        <!-- DYNAMIC LIST OF EVENTS BASED ON USER INTERESTS -->
-        <% if current_user %>
-            <h3>Based on your interests:</h3>
-            <% current_user.events_to_checkout.each do |event| %>
-                <%= link_to event_path(event) do %>
-                    <div class="list-group-item-heading"><%= event.title %></div>
-                <% end %>
-            <% end %>
-        <% end %>
-
     </div>
 </div>
 <div class="row">
-    <div class="col-md-5">
+    <div class="col-md-6 vert-scroll-div">
         <h3>Upcoming Events Near You:</h3>
         <!-- MAIN CONTENT AREA UPCOMING EVENTS -->
         <% Event.upcoming_events(limit: 7).each do |event| %>
@@ -60,6 +49,20 @@
             </div>
         <% end %>
         <div><%= link_to "More Events", events_path %></div>
+    </div>
+    <div class="col-md-3">
+        <!-- DYNAMIC LIST OF EVENTS BASED ON USER INTERESTS -->
+        <% if current_user %>
+            <h3>Based on your interests:</h3>
+            <% current_user.events_to_checkout.each do |event| %>
+                <%= link_to event_path(event) do %>
+                    <div class="list-group-item-heading"><%= event.title %></div>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+    <div class="col-md-2">
+        <%= render 'twitter' %>
     </div>
 </div>
 

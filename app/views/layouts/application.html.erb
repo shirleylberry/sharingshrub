@@ -31,9 +31,8 @@
           <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
+              <li><a href="#">Your Events</a></li>
+              <li><a href="#">Invite Friends</a></li>
               <li role="separator" class="divider"></li>
               <li><%= link_to "Profile", users_path(current_user) %></li>
               <li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>
@@ -64,5 +63,10 @@
     <div class="col-md-1"></div>
   </div>
 </div>
+<footer class="footer">
+  <div class="container">
+    <p class="text-muted">&copy; Sharing Shrub</p>
+  </div>
+</footer>
 </body>
 </html>

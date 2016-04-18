@@ -28,7 +28,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable
-
   has_one :host
   has_one :donor
   has_many :events, through: :host
@@ -45,7 +44,7 @@ class User < ActiveRecord::Base
   def events_to_checkout
     if self.donor
       favorite_cause = self.donor.favorite_cause[0]
-      Event.select('events.id AS id, events.title, SUM(pledges.amount) AS raised').joins(:pledges, :charities => :causes).where('causes.id = ?', favorite_cause.id).group('events.id').order('raised DESC').limit(10)
+      Event.select('events.id AS id, events.title, SUM(pledges.amount) AS raised').joins(:pledges, :charities => :causes).where('causes.id = ?', favorite_cause.id).group('events.id').order('raised DESC').limit(5)
     else
       Event.upcoming_events(limit: 5)
     end

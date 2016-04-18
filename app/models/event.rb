@@ -66,8 +66,8 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def self.upcoming_events(limit: 5)
-    self.where('event_start > ?', Time.now).limit(limit)
+  def self.upcoming_events(limit: 100)
+    self.where('event_start > ?', Time.now).limit(100)
   end 
 
   def send_emails_if_funded
@@ -139,8 +139,8 @@ class Event < ActiveRecord::Base
     growth_data.compact
   end
 
-  def self.upcoming_events(limit: 25)
-    self.where('event_start > ?', Time.now).limit(25)
+  def self.upcoming_events(limit: 15)
+    self.where('event_start > ?', Time.now).limit(15)
   end
 
   def is_on?(start_date, end_date)

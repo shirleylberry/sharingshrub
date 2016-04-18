@@ -47,12 +47,6 @@ class EventsController < ApplicationController
    end  
   end
 
-  def growth_curve
-    @event = Event.find(params[:id])
-    data = @event.growth_curve.compact
-    render json: data 
-  end
-
   def map_events
     @events = Event.upcoming_events(limit: 50)
     render json: @events

@@ -22,12 +22,14 @@ $(document).on('ready page:load', function() {
                 },
                 id: events[i].id,
                 map: map,
-                title: events[i].title
+                title: events[i].title,
+                start: events[i].event_start,
+                end: events[i].event_end
             });
             marker.addListener('click', function() {
-                var markerInfo = "<h3>" + this.title + "</h3>" +
-                                 "<h4><a href='events/" + this.id + 
-                                 "'>Check it out!</a></h4>";
+                var markerInfo = "<h4>" + this.title + "</h4>" +
+                                 "<h5><a href='events/" + this.id + 
+                                 "'>Check it out!</a></h5>";
                 infowindow.setContent(markerInfo);
                 infowindow.open(map, this);
             });

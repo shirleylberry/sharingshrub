@@ -36,9 +36,7 @@ gem "factory_girl_rails", "~> 4.0"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-# For googlemaps
-# gem 'gmaps4rails'
-# For event addresses
+# For googlemaps event addresses
 gem 'geocoder'
 
 gem 'multiparameter_date_time'
