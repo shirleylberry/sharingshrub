@@ -2,13 +2,14 @@
 #
 # Table name: pledges
 #
-#  id         :integer          not null, primary key
-#  event_id   :integer
-#  donor_id   :integer
-#  amount     :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  status     :string
+#  id             :integer          not null, primary key
+#  event_id       :integer
+#  donor_id       :integer
+#  amount         :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  status         :string
+#  transaction_id :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

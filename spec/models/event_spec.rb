@@ -12,6 +12,10 @@
 #  funded          :boolean          default("f")
 #  goal            :float
 #  funded_deadline :datetime
+#  address         :string
+#  city            :string
+#  latitude        :float
+#  longitude       :float
 #
 
 require 'rails_helper'
