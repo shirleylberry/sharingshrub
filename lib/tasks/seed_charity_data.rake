@@ -1,4 +1,3 @@
-
 desc 'Get cause data from web scraper and create causes'
   task :create_causes => :environment do
     include Adapters
@@ -11,8 +10,8 @@ desc 'Get cause data from web scraper and create causes'
 desc 'Get charities data from web scraper and create charities'
   task :create_charities => :environment do
     include Adapters
-    # connection = Adapters::CharityWatchConnection.new
-    # charities = connection.get_charities
+    connection = Adapters::CharityWatchConnection.new
+    charities = connection.get_charities
     client = Adapters::CharityClient.new
     client.create_charities(charities)
   end

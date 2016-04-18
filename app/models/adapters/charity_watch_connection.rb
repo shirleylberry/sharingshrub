@@ -49,7 +49,7 @@ module Adapters
       charity_name = row.css('td').first.text
       rating = row.css('td')[1].text
       url_path = row.css('a').attr("href").value
-      char_hash = {name: charity_name, rating: rating, url_path: url_path, category: @current_category}
+      char_hash = {name: charity_name, rating: rating, url_path: url_path, cause: @current_category}
     end
 
     def create_charity_hashes(table)
@@ -64,6 +64,7 @@ module Adapters
       @charity_url = "https://www.charitywatch.org" + charity_hash[:url_path]
       doc = Nokogiri::HTML(open(@charity_url))
       c_info_div = doc.at_css('.charity_row .charity_section').children
+      if 
       address = [c_info_div[5], c_info_div[7], c_info_div[9]].join(" ")
       website = c_info_div[11].attr("href")
       mission = doc.css('.charity_row .charity_section')[3].text.gsub(/[\t\n]/, "").gsub("Stated Mission ", "")

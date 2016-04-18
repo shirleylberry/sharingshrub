@@ -1,4 +1,4 @@
-$(document).on('ready page:load', function() {
+$(".pages.home").ready(function(){
 
     var map;
     var infowindow = new google.maps.InfoWindow({});
@@ -14,6 +14,7 @@ $(document).on('ready page:load', function() {
 
     $.get('/map_events')
      .success(function (events) {
+        // debugger;
         for ( var i in events ) {
             var marker = new google.maps.Marker({
                 position: {

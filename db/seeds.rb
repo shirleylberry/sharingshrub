@@ -8,23 +8,25 @@
 
 # clears the database before seeding
 ActiveRecord::Base.establish_connection
+skipped_tables = ['schema_migrations', 'charities', 'causes', 'cause_charities']
 ActiveRecord::Base.connection.tables.each do |table|
-  next if table == 'schema_migrations'
+  # charities and causes are created with a rake task
+  next if skipped_tables.include?(table)
   # MySQL and PostgreSQL
   # ActiveRecord::Base.connection.execute("TRUNCATE #{table}")
   # SQLite
   ActiveRecord::Base.connection.execute("DELETE FROM #{table}")
 end
 
-cause = ["Education", "Environment", "Public Health", "Human and Civil Rights", "Religion", "Wildlife Conservation", "Homeless Service", "Animal Rights"]
-cause.each do |type|
-  Cause.create(name: type)
-end 
+# cause = ["Education", "Environment", "Public Health", "Human and Civil Rights", "Religion", "Wildlife Conservation", "Homeless Service", "Animal Rights"]
+# cause.each do |type|
+#   Cause.create(name: type)
+# end 
 
-charities = ["Direct Relief", "MAP International", "Samaritan's Purse", "Catholic Medical Mission Board", "AmeriCare", "The Conservation Fund", "United States Fund for UNICEF", "Natural Resources Defense Council", "Doctors Without Borders, USA" ]
-charities.each do |charity| 
-  Charity.create(name: charity)
-end 
+# charities = ["Direct Relief", "MAP International", "Samaritan's Purse", "Catholic Medical Mission Board", "AmeriCare", "The Conservation Fund", "United States Fund for UNICEF", "Natural Resources Defense Council", "Doctors Without Borders, USA" ]
+# charities.each do |charity| 
+#   Charity.create(name: charity)
+# end
 
 1000.times do
   User.create(name: Faker::Name.name, email: Faker::Internet.safe_email, password: Faker::Internet.password)
@@ -70,11 +72,11 @@ end
 end 
 
 
-Charity.all.each do |charity|
-  3.times do 
-  CauseCharity.create(cause: Cause.all.sample , charity: charity)
-  end 
-end 
+# Charity.all.each do |charity|
+#   3.times do 
+#     CauseCharity.create(cause: Cause.all.sample , charity: charity)
+#   end 
+# end 
 
 
 
