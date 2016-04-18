@@ -37,7 +37,7 @@ gem "factory_girl_rails", "~> 4.0"
 # gem 'capistrano-rails', group: :development
 
 # For googlemaps
-gem 'gmaps4rails'
+# gem 'gmaps4rails'
 # For event addresses
 gem 'geocoder'
 

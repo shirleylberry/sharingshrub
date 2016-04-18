@@ -22,8 +22,7 @@ $(document).on('ready page:load', function() {
                 },
                 id: events[i].id,
                 map: map,
-                title: events[i].title,
-                icon: 'http://s24.postimg.org/mqzyu7x3l/bunny.png'
+                title: events[i].title
             });
             marker.addListener('click', function() {
                 var markerInfo = "<h3>" + this.title + "</h3>" +
