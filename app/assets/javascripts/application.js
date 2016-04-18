@@ -16,7 +16,8 @@
 //= require jquery-ui
 //= require jquery-readyselector
 //= require braintree_sandbox_payment
-//= require d3
+//= require d3.min
+//= require d3pie.min
 //= require underscore
 //= require markerclusterer
 //= require liquidFillGauge
