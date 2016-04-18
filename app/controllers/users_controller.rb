@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
 
   def show
-    if User.find(params[:id]) == current_user
-      @user = current_user
-    else 
-      redirect_to root_path
-    end 
+    # if User.find(params[:id]) == current_user
+    #   @user = current_user
+    # # else 
+    #   redirect_to root_path
+    # end 
+
+    @user = User.find(params[:id])
   end 
 
   def cause_chart

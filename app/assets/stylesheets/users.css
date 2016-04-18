@@ -1,0 +1,23 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins);
+
+.label-text {
+    alignment-baseline: middle;
+    font-size: 12px;
+    font-family: arial,helvetica,"sans-serif";
+    fill: #393939;
+}
+.label-line {
+    stroke-width: 1;
+    stroke: #393939;
+}
+.label-circle {
+    fill: #393939;
+}
+.info_box {
+    border: 1px solid #fcfac9;
+    background-color: #fcfac9;
+    border-radius: 40px;
+    padding: 1em;
+    margin-top: .5em;
+    font-family: 'Poppins', sans-serif;
+  }
