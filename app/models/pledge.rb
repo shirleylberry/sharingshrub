@@ -8,13 +8,14 @@
 #  amount     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  status     :string
-#
+#  status     :string           ["pending", "returned", "funded"]
+
 
 class Pledge < ActiveRecord::Base
   belongs_to :donor
   belongs_to :event
   has_many :charities, through: :event
+  has_many :cause 
 
   def self.average_pledge
     # (sum of all the pledges) / (number of pledges on the whole platform)
@@ -24,6 +25,16 @@ class Pledge < ActiveRecord::Base
     # For the sake of advertising
     Pledge.where(status: 'paid').sum(:amount) + 9762
   end
+
+  def self.amount_by(cause)
+    joins({:charities => :causes}).where(causes: {id: cause.id}).sum(:amount)
+  end
+
+  def self.amount_by(charity)
+    joins(:charities).where(charities:{id: charity.id}).sum(:amount)
+  end
+
+  
 
 end
 

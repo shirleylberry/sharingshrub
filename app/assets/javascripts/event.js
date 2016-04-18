@@ -42,21 +42,20 @@ $(".events.new, .events.create").ready(function(){
 });
 
 $('.events.show').ready(function(){
-  //Draws Gauge Chart
-  var config = liquidFillGaugeDefaultSettings();
-  config.circleColor = "#FF7777";
-  config.textColor = "#FF4444";
-  config.waveTextColor = "#FFAAAA";
-  config.waveColor = "#A9F5F2";
-  config.circleThickness = 0.1;
-  config.waveHeight = 0.6;
-  config.waveAnimateTime = 1500;
+      //Draws Gauge Chart
+      var config = liquidFillGaugeDefaultSettings();
+      config.circleColor = "#FF7777";
+      config.textColor = "#FF4444";
+      config.waveTextColor = "#FFAAAA";
+      config.waveColor = "#A9F5F2";
+      config.circleThickness = 0.1;
+      config.waveHeight = 0.6;
+      config.waveAnimateTime = 1500;
 
-  var percentage = $('div.funding_chart').attr('percent')
-  var gauge = loadLiquidFillGauge("event_fundraising_fillgauge", parseInt(percentage), config);
-  
-  var event_id = $('body').find('#funding_chart').attr('name')
-  //Draws Growth Chart
+      var percentage = $('div.funding_chart').attr('percent')
+      var gauge = loadLiquidFillGauge("event_fundraising_fillgauge", parseInt(percentage), config);
+      var event_id = $('body').find('#funding_chart').attr('name')
+      //Draws Growth Chart
   $.ajax({
     mehtod: "GET",
     url: "/events/" + event_id + "/growth_curve"
@@ -90,5 +89,25 @@ $('.events.show').ready(function(){
   bar_chart.addSeries(null, dimple.plot.bar);
   bar_chart.draw();
 });
+})
 
+$('.events.index').ready(function(){
+   $("#events_search").submit(function(event){
+      event.preventDefault();
+      $('#result').empty();
+      $.ajax({
+      url: "/events/search",
+      method: "get",
+      data: ($("#events_search").serialize())
+      }).success(function(data){
+       for (var index in data) {    
+         var event = data[index];
+         var text = '<a id= '+ event.id + ' href = "/events/'+ event.id + '">' + event.title +'</p>';  
+
+         $('#result').append(text);
+       }
+    })
+      return false;
+  });
 });
+  
