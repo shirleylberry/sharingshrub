@@ -41,6 +41,8 @@ $(".events.new, .events.create").ready(function(){
   });
 });
 
+
+//EVENT ANALYTIC CHARTS
 $('.events.show').ready(function(){
       //Draws Gauge Chart
       var config = liquidFillGaugeDefaultSettings();
@@ -49,52 +51,55 @@ $('.events.show').ready(function(){
       config.waveTextColor = "#FFAAAA";
       config.waveColor = "#A9F5F2";
       config.circleThickness = 0.1;
-      config.waveHeight = 0.6;
+      config.waveHeight = 0.2;
       config.waveAnimateTime = 1500;
 
       var percentage = $('div.funding_chart').attr('percent')
       var gauge = loadLiquidFillGauge("event_fundraising_fillgauge", parseInt(percentage), config);
       var event_id = $('body').find('#funding_chart').attr('name')
+      
       //Draws Growth Chart
-  $.ajax({
-    mehtod: "GET",
-    url: "/events/" + event_id + "/growth_curve"
-  }).success(function(data) {
-    var svg = dimple.newSvg("#growth_chart", 590, 400);       
-    var growth_chart = new dimple.chart(svg, data);
-    growth_chart.setBounds(60, 30, 500, 300);
-    var x = growth_chart.addCategoryAxis("x", "period")
-    growth_chart.addMeasureAxis("y", "ratio");
-    growth_chart.addColorAxis("ratio", ["green", "yellow", "red"]);
-    // Add a thick line with markers
-    var lines = growth_chart.addSeries(null, dimple.plot.line); 
-    lines.lineWeight = 5;
-    lines.lineMarkers = true;
-    // Draw the chart
-    growth_chart.draw();
-  });
+      $.ajax({
+        mehtod: "GET",
+        url: "/events/" + event_id + "/growth_curve"
+      }).success(function(data) {
+        var svg = dimple.newSvg("#growth_chart", 590, 400);       
+        var growth_chart = new dimple.chart(svg, data);
+        growth_chart.setBounds(60, 30, 500, 300);
+        var x = growth_chart.addCategoryAxis("x", "period")
+        growth_chart.addMeasureAxis("y", "ratio");
+        growth_chart.addColorAxis("ratio", ["green", "yellow", "red"]);
+        // Add a thick line with markers
+        var lines = growth_chart.addSeries(null, dimple.plot.line); 
+        lines.lineWeight = 5;
+        lines.lineMarkers = true;
+        // Draw the chart
+        growth_chart.draw();
+      });
   
-  //Draws Bar Chart
-  $.ajax({ 
-  method: "GET",
-  url: "/events/" + event_id + "/bar_chart"
- }).success(function(data){
+        //Draws Bar Chart
+        $.ajax({ 
+        method: "GET",
+        url: "/events/" + event_id + "/bar_chart"
+       }).success(function(data){
+        var svg = dimple.newSvg("#bar_chart", 590, 400);
+        var bar_chart = new dimple.chart(svg, data);
+        bar_chart.setBounds(60, 30, 510, 305)
+        var x = bar_chart.addCategoryAxis("x", "date");
+        x.addOrderRule("Date");
+        bar_chart.addMeasureAxis("y", "amount");
+        bar_chart.addSeries(null, dimple.plot.bar);
+        bar_chart.draw();
+      });
+      })
 
-  var svg = dimple.newSvg("#bar_chart", 590, 400);
-  var bar_chart = new dimple.chart(svg, data);
-  bar_chart.setBounds(60, 30, 510, 305)
-  var x = bar_chart.addCategoryAxis("x", "date");
-  x.addOrderRule("Date");
-  bar_chart.addMeasureAxis("y", "amount");
-  bar_chart.addSeries(null, dimple.plot.bar);
-  bar_chart.draw();
-});
-})
 
+//SEARCH BY EVENT-DATES
 $('.events.index').ready(function(){
-   $("#events_search").submit(function(event){
-      event.preventDefault();
-      $('#result').empty();
+     $("#events_search").submit(function(event){
+       event.preventDefault();
+       $('#result').empty();
+     
       $.ajax({
       url: "/events/search",
       method: "get",
@@ -103,11 +108,10 @@ $('.events.index').ready(function(){
        for (var index in data) {    
          var event = data[index];
          var text = '<a id= '+ event.id + ' href = "/events/'+ event.id + '">' + event.title +'</p>';  
-
          $('#result').append(text);
        }
     })
-      return false;
+     return false;
   });
 });
   
