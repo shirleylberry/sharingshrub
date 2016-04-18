@@ -21,3 +21,19 @@
       <div id="map" style="width: 100%; height: 400px"></div>
   </div>
 <% end %>
+
+<% if charity.upcoming_events%>
+  <div class = "upcoming-events">
+    <% charity.upcoming_events.each do |event| %>
+      <%= event.title %>
+      <%= event.event_start %>
+      <%= event.event_end %>
+    <% end %>
+  </div>
+<% end %>
+
+<% if current_user.admin %>
+  <div class = "admin">
+    <%= charity.pledges_lost %>
+  </div>
+<% end %>

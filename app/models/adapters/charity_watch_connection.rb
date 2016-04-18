@@ -64,12 +64,21 @@ module Adapters
       @charity_url = "https://www.charitywatch.org" + charity_hash[:url_path]
       doc = Nokogiri::HTML(open(@charity_url))
       c_info_div = doc.at_css('.charity_row .charity_section').children
-      if 
-      address = [c_info_div[5], c_info_div[7], c_info_div[9]].join(" ")
-      website = c_info_div[11].attr("href")
+      address_info = c_info_div.slice(5..-1)
+      address = []
+      website = ""
+      address_info.each do |el|
+        next if el.name == "br"
+        if el.name == "a"
+          website = el.attr("href")
+          break
+        elsif el.name == "text"
+          address << el.text
+        end
+      end
       mission = doc.css('.charity_row .charity_section')[3].text.gsub(/[\t\n]/, "").gsub("Stated Mission ", "")
       charity_hash[:website] = website
-      charity_hash[:address] = address
+      charity_hash[:address] = address.join(" ")
       charity_hash[:mission] = mission
       charity_hash
     end
