@@ -1,41 +1,31 @@
-This is <%= @user.name %>'s show page 
+This is <%= @user.username %>'s show page 
 <p>Event History:</p>
-<style>
-.label-text {
-    alignment-baseline: middle;
-    font-size: 12px;
-    font-family: arial,helvetica,"sans-serif";
-    fill: #393939;
-}
-.label-line {
-    stroke-width: 1;
-    stroke: #393939;
-}
-.label-circle {
-    fill: #393939;
-}
-</style>
 <div class="row">
-    <div class="col-md-4">
-        <h4> Supported Causes </h4>
-        <div id="cause_chart">
-            <svg id="donut" width="300" height ="300">
-                <g id="canvas">
-                    <g id="art" />
-                    <g id="labels" />
-                </g>
-            </svg>
-        </div> 
+    <div class="col-md-6">
+        <div class="info_box" >
+         <h3> Supported Causes </h3>
+            <div id="cause_chart">
+                <svg id="donut" width="300" height ="300">
+                    <g id="canvas">
+                        <g id="art" />
+                        <g id="labels" />
+                    </g>
+                </svg>
+            </div> 
+        </div>
     </div>
 
-    <div class="col-md-4" id = "pieChart">
-    <h4> Supported Charity </h4>
+    <div class="col-md-6" id = "pieChart">
+     <div class="info_box" >
+    <h3> Supported Charity </h3>
     <svg></svg>
+    </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-6" id = 'hosted_events'>
+     <div class="info_box" >
             <h3>Hosted Events</h3>    
             <% if @user.host %> 
                  <% @user.events.each do |event| %> 
@@ -46,9 +36,11 @@ This is <%= @user.name %>'s show page
              <% else %> 
                  <%= "This user hasn't hosted yet" %>   
              <% end %>
+             </div>
       </div>
 
     <div class="col-md-6"  >
+     <div class="info_box" >
       <div class= 'pledged_events' userId = '<%=@user.id %>'>
             <h3>Pledged Events </h3>
             <% if @user.donor %> 
@@ -63,7 +55,7 @@ This is <%= @user.name %>'s show page
              <% end %>
       </div>
     </div>
-
+  </div>
 </div>
 
 
