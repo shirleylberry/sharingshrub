@@ -1,0 +1,44 @@
+<!doctype html>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script>
+$(function(){
+
+    $( "#from" ).datepicker({
+    numberOfMonths: 1,
+    minDate:0,
+    dateFormat: 'yy-mm-dd',
+    onClose: function( selectedDate ) {
+        $( "#to" ).datepicker( "option", "minDate", selectedDate );
+    }
+  });
+
+    $( "#to" ).datepicker({
+    defaultDate: "+1w",
+    numberOfMonths: 1,
+    minDate:0,
+    dateFormat: 'yy-mm-dd',
+    onClose: function( selectedDate ) { 
+        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+    }
+  });
+
+ $('button').on("click", function(event){
+  event.preventDefault();
+    var day_start =  $('#from').val();
+    var day_end = $('#to').val();
+    var t = '<div class="result"><h2>Events Between '+ day_start +' AND '+ day_end +' </h2></div>';
+     $('#interval').append(t);
+  })
+})
+</script>
+
+<form action = '/events/search', method: 'GET', id="events_search" >
+<p> Search events by date: </p>
+From: <input id = 'from', name = 'event_start'> To: <input id = 'to', name = 'event_end' >
+<input type = 'submit' >
+</form>
+
+<div id='result'></div>
+
+
+  

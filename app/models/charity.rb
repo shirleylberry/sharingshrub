@@ -19,24 +19,26 @@ class Charity < ActiveRecord::Base
   has_many :events, through: :event_charities
   has_many :hosts, through: :events
 
-  def raised_this_year
+  def total_pledges
+    Pledge.joins(:charities).where('charities.id = ?', self).sum(:amount)
   end
 
-  def upcoming_events
+  def upcoming_events 
+    self.events.upcoming_events(limit: 25)
   end
-
   # revenue that they'll have if their events are funded
   # and the pledge hasn't been paid through yet
   # (i.e. there might be a delay between event passing and 
   # payment being processed)
-  def pledge_receivables
+  def pledge_receivables  
   end
 
   def amt_paid_out
   end
 
   # does not include pledges not yet paid
-  def raised_to_date
+  def raised_to_date(date, event)
+    event.pledges.joins(:charities).where('charities.id = ? AND pledges.created_at < ?', self, date).sum(:amount)
   end
 
   def pledges_lost

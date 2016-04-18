@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery-ui
 //= require jquery-readyselector
 //= require braintree_sandbox_payment
 //= require d3
@@ -22,4 +23,3 @@
 //= require dimple
 //= require turbolinks
 //= require_tree .
-

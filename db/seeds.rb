@@ -63,7 +63,7 @@ end
   event.charities.push(Charity.all.sample)
   event.save
      k.times do 
-      pledge = Pledge.new(event: event, donor: Donor.all.sample , amount: rand(5..100), status: "pending")
+      pledge = Pledge.new(event: event, donor: Donor.all.sample , amount: rand(5..10), status: "pending")
       pledge.created_at = rand(event.created_at..Time.now)
       pledge.save
     end 

@@ -26,7 +26,5 @@ class Host < ActiveRecord::Base
     self.events.list(cause_or_charity)
   end 
 
-  
-   
 end
 

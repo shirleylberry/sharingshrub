@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  skip_before_action :authenticate_user!, only: [:show], except: [:map_events, :growth_curve, :bar_chart]
+  skip_before_action :authenticate_user!, only: [:show, :map_events, :growth_curve, :bar_chart, :search]
 
   def new
     @event = Event.new
@@ -17,6 +17,7 @@ class EventsController < ApplicationController
    end   
   end
 
+ 
   def show
     set_event
   end 
@@ -36,6 +37,19 @@ class EventsController < ApplicationController
   def edit
     set_event
   end
+
+ 
+  def search
+    start_date = params['event_start'].to_time
+    end_date = params['event_end'].to_time
+    data = Event.events_between(start_date, end_date)
+    render json: data 
+  end 
+
+ def index
+  
+  end
+
 
   def update
     @event = set_event

@@ -10,7 +10,7 @@ This is <%= @user.name %>'s show page
          <%= event.title %>
          <%= event.event_start.strftime("%B %d, %Y") %> 
          <% end %></li> 
-        <% end %>
+        <% end %>   
  <% else %> 
     <%= "This user hasn't hosted yet" %>   
  <% end %>
@@ -21,9 +21,9 @@ This is <%= @user.name %>'s show page
 <div class= 'pledged_events' userId = '<%=@user.id %>'>
 <h3>Pledged Events </h3>
  <% if @user.donor %> 
-  <% @user.donor.events.each do |event| %> 
+  <% @user.donor.events.uniq.each do |event| %> 
         <li><%= link_to event_path(event) do %>
-            pledged $<%= @user.donor.pledged_amount(event).first.amount %> 
+            pledged $<%= @user.donor.pledged_amount(event) %> 
             on <%= event.event_start.strftime("%B %d, %Y")%> 
             for <%= event.title %>  </li>
              <% end %>
@@ -41,10 +41,6 @@ This is <%= @user.name %>'s show page
 
 </div>
 
-
-<div class = 'row'>
-this is another row
-</div>
 
 
 

@@ -53,7 +53,7 @@ class Donor < ActiveRecord::Base
   end
 
   def pledged_amount(event)
-    Pledge.select(:amount).where('donor_id = ? AND event_id = ? ', self, event)
+    Pledge.where('donor_id = ? AND event_id = ? ', self, event).sum(:amount)
   end 
 
   def pledges_by_cause(cause)

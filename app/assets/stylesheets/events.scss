@@ -1,7 +1,22 @@
-.liquidFillGaugeText {
-
- font-family: Helvetica; 
- font-weight: bold;
-
+.label-checkbox { 
+    display: block;
 }
 
+#event_fundraising_fillgauge {
+    margin-left: -3em; 
+    position: relative;
+}
+
+.funding_chart text.liquidFillGaugeText {
+    font-size: 28px;
+}
+
+.success-notice {
+    padding: 2em;
+    font-size: 1.5em;
+    border: 5px solid #5b965b;
+    border-radius: 30px;
+    background-color: #98FB98;
+    color: white;
+    font-weight: bold;
+}
