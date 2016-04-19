@@ -16,6 +16,7 @@
 #  city            :string
 #  latitude        :float
 #  longitude       :float
+#  description     :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

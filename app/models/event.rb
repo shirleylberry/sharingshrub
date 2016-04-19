@@ -16,6 +16,7 @@
 #  city            :string
 #  latitude        :float
 #  longitude       :float
+#  description     :string
 #
 
 class Event < ActiveRecord::Base

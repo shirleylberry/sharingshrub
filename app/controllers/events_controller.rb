@@ -10,7 +10,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_attributes)
     @host = Host.find_or_create_by(user_id: current_user.id)
     @event.host = @host
-   if  @event.save
+   if @event.save
      redirect_to @event
    else
       render 'new' 
@@ -46,7 +46,7 @@ class EventsController < ApplicationController
     render json: data 
   end 
 
- def index
+  def index
   
   end
 
@@ -54,7 +54,7 @@ class EventsController < ApplicationController
   def update
     @event = set_event
     @event.update(event_attributes)
-    if  @event.save
+    if @event.save
      redirect_to @event
    else
       render 'edit' 
@@ -80,6 +80,7 @@ class EventsController < ApplicationController
                                  :latitude,
                                  :longitude,
                                  :city,
+                                 :description,
                                  :charity_ids => []
                                 )
   end 
