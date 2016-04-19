@@ -49,10 +49,11 @@
 
 .info_box {
     border: 1px solid #fcfac9;
-    background-color: #00028a;
+    background-color: #FF6F6F;
     border-radius: 40px;
     padding: 1em;
     margin-top: .5em;
+      height: 870px;
     font-family: 'Poppins', sans-serif;
     ;
   }
@@ -66,10 +67,11 @@
 
 .info_box_sm {
     border: 1px solid #fcfac9;
-    background-color: #fcfac6;
+    background-color: white;
     border-radius: 20px;
     padding: 1em;
     margin-top: .5em;
+     height: 750px;
     font-family: 'Poppins', sans-serif;
 }
 
@@ -78,7 +80,6 @@
      font-weight: bold;
      
 }
-
 
 .donation_box {
     padding: 20px;
