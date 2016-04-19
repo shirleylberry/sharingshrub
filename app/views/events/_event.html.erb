@@ -1,49 +1,90 @@
 
 <div class="row">
     <div class="col-md-8">
-        <h2>Title: <%= event.title %></h2>
-        <h4>Deadline to Fund this Event: <%= event.funded_deadline %></h4>
-        
-        <label>Charities:</label>
-        <ul>
-        <% event.charities.each do |charity| %>
-          <%= link_to charity_path(charity) do %>
-            <li><%= charity.name %></li>
-          <% end %>
-        <% end %>
-        </ul>
+       <div class="info_box"  >
+            <h3><%= event.title %></h3>
+              <div class="info_box_sm">
+            <h4>ABOUT</h4>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+            
+          <h4> Fighting for</h4>
+               <ul>
+               <% event.causes.each do |cause| %>
+                 <%= link_to cause_path(cause) do %>
+                        <li><%= cause.name %></li>
+                      <% end %>
+               <% end %>
+               </ul>
+         <h4>All will be donated to</h4>
+              <ul>
+                <% event.charities.each do |charity| %>
+                <%= link_to charity_path(charity) do %>
+                    <li><%= charity.name %></li>
+                    <% end %>
+                <% end %>
+              </ul>
 
-        <h3>Event Description:</h3>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-        
-        <% if current_user && (current_user.is_host(event) || current_user.admin?) %>
-            <%= link_to 'Update Event', edit_event_path(event) %>
-        <% end %>
+        <h4>When</h4> 
+          <p><%= event.event_start.strftime('%A, %B %d at %I:%M%p') %> --
+          <%= event.event_end.strftime('%A, %B %d at %I:%M%p') %></p>
+
+        <h4>Where</h4>
+         <p><%= event.address %></p> 
+           
+        <h4> Hosted By </h4>
+         <p><%= event.host.name %></p>
+
+     <!--  Host can edit event page   -->   
+      <% if current_user && (current_user.is_host(event) || current_user.admin?) %>
+        <%= link_to 'Update Event', edit_event_path(event) %>
+      <% end %>
+        <%= link_to "LOOK UP MORE EVENTS!", events_path, class: "btn btn-success" %>
+
+
+      </div>
     </div>
-    <div class="col-md-4" center >
-
-        <h3>Way to $<%= event.goal %> goal:</h3>
+ </div>
+  
+  <div class="col-md-4" center >
+    <div class= "donation_box">
+        <p> Pledge Goal ! $<%= event.goal %></p>
+         <hr>
         <div class = "funding_chart" percent="<%= event.percentage_raised_fund %>">
-            <svg id="event_fundraising_fillgauge"  width="97%" height="250"></svg>
+            <svg id="event_fundraising_fillgauge"  height="200"></svg>
         </div>
-        <h3>Raised: $<%= event.total_raised_to_date %></h3>
-
+        <h4> current fund: $<%= event.total_raised_to_date %></h4>
+        <h4>Please support before:<%= event.funded_deadline %></h4>
         <%= link_to "Make a Pledge", new_event_pledge_path(event), class: "btn btn-success" %>
+     </div>
 
-        <h4>Event Start: <%= event.event_start.strftime('%A, %B %d at %I:%M%p') %></h4>
-        <h4>Event End: <%= event.event_end.strftime('%A, %B %d at %I:%M%p') %></h4>
+   </br>  
 
-        <h4>Deadline to Fund this Event: <%= event.funded_deadline %></h4>
+    <div class ="event_map">
+      <% if event.address %>
+        <div class = "address" lat= <%=event.latitude%> long=<%=event.longitude%> >
+           <div class="map-container">
+             <div id="map" style="width: 100%; height: 400px"></div>
+          </div>
+        </div>
+      <% end %>
+  </div>
+</div> 
+</div>
+</br>
+<div class= "donation_box">
+<p>Statistics for the Host </p>
+    <hr>
+     <div id="chart" name="<%= event.id %>">
+            <div class="growth_chart" id="growth_chart" >
+                <svg id="growth_chart"></svg>
+            </div>
+    <hr>
+            <div class="bar_chart" id="bar_chart" >
+                 <svg id="bar_chart"></svg>
+            </div>
+     </div>
+</div>
+</div>
+</div>
 
-    </div>
-    <div id="funding_chart" name="<%= event.id %>"  >
-        <svg id="event_fundraising_fillgauge" width="100%" height="200"></svg>
-    </div>
-    <div class="growth_chart" id="growth_chart" >
-        <svg id="growth_chart"></svg>
-    </div>
-    <div class="bar_chart" id="bar_chart" >
-        <svg id="bar_chart"></svg>
-    </div>
-</body>
 

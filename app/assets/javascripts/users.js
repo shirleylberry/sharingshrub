@@ -50,7 +50,7 @@ pied_data = jhw_pie(data);
 // used in the "d" attribute.
 pied_arc = d3.svg.arc()
     .innerRadius(50)
-    .outerRadius(85);
+    .outerRadius(100);
 
 // This is an ordinal scale that returns 10 predefined colors.
 // It is part of d3 core.

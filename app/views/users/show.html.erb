@@ -1,9 +1,11 @@
-This is <%= @user.username %>'s show page 
-<p>Event History:</p>
+<H2>Hi! <%= @user.username %>,</H2> 
+<h4> Here’s to a joyful present and a well-remembered past! </H4>
+
 <div class="row">
     <div class="col-md-6">
         <div class="info_box" >
          <h3> Supported Causes </h3>
+             <div class="info_box_sm" >
             <div id="cause_chart">
                 <svg id="donut" width="300" height ="300">
                     <g id="canvas">
@@ -12,21 +14,29 @@ This is <%= @user.username %>'s show page
                     </g>
                 </svg>
             </div> 
+          </div>
         </div>
     </div>
 
     <div class="col-md-6" id = "pieChart">
-     <div class="info_box" >
-    <h3> Supported Charity </h3>
-    <svg></svg>
-    </div>
+         <div class="info_box" >
+         <h3> Supported Charity </h3>
+            <% if @user.donor %> 
+            <div class="info_box_sm" >
+            <% @user.donor.supported_charity.each do |charity| %>
+              <li><%=link_to charity.name, charity_path(charity) %></li>
+              <% end %>
+          </div>
+          <% end %>
+        </div>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-6" id = 'hosted_events'>
      <div class="info_box" >
-            <h3>Hosted Events</h3>    
+            <h3>Hosted Events</h3>   
+             <div class="info_box_sm" > 
             <% if @user.host %> 
                  <% @user.events.each do |event| %> 
                  <li><%= link_to event_path(event) do %>
@@ -34,8 +44,9 @@ This is <%= @user.username %>'s show page
                      <%= event.event_start.strftime("%B %d, %Y") %><% end %></li> 
                     <% end %>   
              <% else %> 
-                 <%= "This user hasn't hosted yet" %>   
+                 <%= "You haven't hosted any events yet" %>   
              <% end %>
+             </div>
              </div>
       </div>
 
@@ -43,16 +54,19 @@ This is <%= @user.username %>'s show page
      <div class="info_box" >
       <div class= 'pledged_events' userId = '<%=@user.id %>'>
             <h3>Pledged Events </h3>
+             <div class="info_box_sm" >
             <% if @user.donor %> 
                <% @user.donor.events.uniq.each do |event| %> 
                 <li><%= link_to event_path(event) do %>
-                    pledged $<%= @user.donor.pledged_amount(event) %> 
-                    on <%= event.event_start.strftime("%B %d, %Y")%> 
-                    for <%= event.title %><% end %></li>
+                    $<%= @user.donor.pledged_amount(event) %> 
+                     for "<%= event.title %>"
+                     , <%= event.event_start.strftime("%B, %Y")%> 
+                     <% end %></li>
                    <% end %>
              <% else %> 
-                <%= "This user hasn't hosted yet" %>   
+                <%= "You haven't donated yet" %>   
              <% end %>
+      </div>
       </div>
     </div>
   </div>

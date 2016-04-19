@@ -69,7 +69,7 @@ class Donor < ActiveRecord::Base
   end
 
   def supported_charity
-    Charity.joins(:events => :donors).where('donor_id =?', self.id).uniq 
+    Charity.joins(:events => :donors).where('donor_id =?', self.id).uniq
   end
 
   def favorite_cause

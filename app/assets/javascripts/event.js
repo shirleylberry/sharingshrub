@@ -44,6 +44,22 @@ $(".events.new, .events.create").ready(function(){
 
 //EVENT ANALYTIC CHARTS
 $('.events.show').ready(function(){
+
+     var lat = parseInt($('.address').attr('lat'));
+     var long = parseInt($('.address').attr('long'));
+     var myLatlng = new google.maps.LatLng( lat, long);
+     var mapOptions = {
+         zoom: 8,
+         center: myLatlng
+        }          
+     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+     var marker = new google.maps.Marker({
+          position: myLatlng,
+      });
+    marker.setMap(map);
+
+
+
       //Draws Gauge Chart
       var config = liquidFillGaugeDefaultSettings();
       config.circleColor = "#FF7777";
@@ -56,14 +72,15 @@ $('.events.show').ready(function(){
 
       var percentage = $('div.funding_chart').attr('percent')
       var gauge = loadLiquidFillGauge("event_fundraising_fillgauge", parseInt(percentage), config);
-      var event_id = $('body').find('#funding_chart').attr('name')
+      
+      var event_id = $('body').find('#chart').attr('name')
       
       //Draws Growth Chart
       $.ajax({
         mehtod: "GET",
         url: "/events/" + event_id + "/growth_curve"
       }).success(function(data) {
-        var svg = dimple.newSvg("#growth_chart", 590, 400);       
+        var svg = dimple.newSvg("#growth_chart", 700, 400);       
         var growth_chart = new dimple.chart(svg, data);
         growth_chart.setBounds(60, 30, 500, 300);
         var x = growth_chart.addCategoryAxis("x", "period")
@@ -82,7 +99,7 @@ $('.events.show').ready(function(){
         method: "GET",
         url: "/events/" + event_id + "/bar_chart"
        }).success(function(data){
-        var svg = dimple.newSvg("#bar_chart", 590, 400);
+        var svg = dimple.newSvg("#bar_chart", 700, 400);
         var bar_chart = new dimple.chart(svg, data);
         bar_chart.setBounds(60, 30, 510, 305)
         var x = bar_chart.addCategoryAxis("x", "date");
@@ -91,7 +108,8 @@ $('.events.show').ready(function(){
         bar_chart.addSeries(null, dimple.plot.bar);
         bar_chart.draw();
       });
-      })
+
+})       
 
 
 //SEARCH BY EVENT-DATES
