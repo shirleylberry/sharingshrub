@@ -3,10 +3,8 @@ $('.users.show').ready(function(){
 
 $.ajax({ 
   method: "GET",
-  url: "/causes/" + user_id + "/pie_chart"
-
+  url: "/users/" + user_id + "/cause_chart"
 }).success(function(data){
-
 svg = d3.select("#cause_chart");
 canvas = d3.select("#canvas");
 art = d3.select("#art");
