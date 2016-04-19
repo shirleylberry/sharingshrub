@@ -66,7 +66,7 @@ $(".pages.home").ready(function(){
         // Set the size of our SVG element
         svg.attr({
             height: 300,
-            width: 300
+            width: 200
         });
 
         // Store our chart dimensions
@@ -87,8 +87,8 @@ $(".pages.home").ready(function(){
         // information for each wedge based on the data set. This is 
         // used in the "d" attribute.
         pied_arc = d3.svg.arc()
-            .innerRadius(80)
-            .outerRadius(150);
+            .innerRadius(130)
+            .outerRadius(200);
 
         // This is an ordinal scale that returns 10 predefined colors.
         // It is part of d3 core.
@@ -169,8 +169,8 @@ $(".pages.home").ready(function(){
             return d.data.name + " ($" + d.data.amount + ")"
         });
 
-        alpha = 0.5;
-        spacing = 15;
+        alpha = 1;
+        spacing = 12;
 
         function relax() {
             again = false;
