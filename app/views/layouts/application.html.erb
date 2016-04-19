@@ -19,13 +19,13 @@
         <%= link_to root_path do %>
           <%= image_tag 'sharing_shrub_logo.png', class: "navbar-brand"%>
         <% end %>
-        <li><%= link_to "sharing shrub", root_path %></li>
+        <li><%= link_to "Sharing Shrub", root_path %></li>
       </ul>
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
-          <li><%= link_to current_user.username, edit_user_registration_path(current_user) %>
+          <li><%= link_to current_user.username.upcase, edit_user_registration_path(current_user) %>
           </li>
           <li><%= link_to "Host Event", new_event_path %></li>
           <li class="dropdown">
@@ -44,28 +44,21 @@
         <% end %>
       </ul>
     </div><!--/.nav-collapse -->
-  </div><!--/.container-fluid -->
+  </div><!--/.container-fluid --> 
 </nav>
 
 
 <div class="container">
   <div class="row">
-    <div class="col-md-1">
-       <div class='search_form_keyword'>
-
-       
-</div>
-    </div>
-    <div class="col-md-10">
+    <div class="col-md-12">
 
           <%= yield %>
     </div>
-    <div class="col-md-1"></div>
-  </div>
+  
 </div>
 <footer class="footer">
   <div class="container">
-    <p class="text-muted">&copy; Sharing Shrub</p>
+    <p class="text-muted">&copy; Sharing Shrub ♥ </p>
   </div>
 </footer>
 </body>

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+     get '/causes/pie_chart' => 'causes#pie_chart'
      resources :causes
      resources :charities
      get '/events/search' => 'events#search'
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
   
   get '/users/:id/show' => 'users#show', as: :users
   get '/users/:id/cause_chart' => 'users#cause_chart'
+
  
   get '/events/:id/growth_curve' => 'events#growth_curve'
   # Returns events data for map on homepage load

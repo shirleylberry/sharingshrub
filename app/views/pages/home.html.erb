@@ -1,30 +1,46 @@
+<body>
+<div>
+    <h1>Sharing Shrub</h1> 
+    <p> ♥ where we party for good reason</p> 
+    </div>
+   <a href ="/events/new"><div class="main_logo"></a>
+</div>
+
+
 <div class="row">
     <!-- MAIN CONTENT AREA -->
-    <div class="col-md-8">
-        <a href= "/events"><h3>Sharing Shrub</h3></a>
-        
-        <!-- GOOGLE MAPS DIV -->
-        <div class="map-container">
-            <div id="map" style="width: 100%; height: 400px"></div>
-        </div>
+    <div class="col-md-6" >
+        <h3> Upcoming Events Near You </h3>   
+        <!-- MAIN CONTENT AREA UPCOMING EVENTS -->
+         <div class="vert-scroll-div" >
+         <% Event.upcoming_events(limit: 7).each do |event| %>
+            <div id="bottom-left-content">
+                <h4><%= link_to event.title, event_path(event) %></h4>
+                      <p><%= event.causes.pluck(:name).join %></p>
+                      <p>Goal: $ <%= event.goal %>  | <%= event.percentage_raised_fund%>% reached | $<%= event.amt_short_of_goal.to_i %> more to go </p>
+                       <div class = "progress">
+                       <div class = "progress-bar progress-bar-info" role = "progressbar" 
+                          aria-valuenow = "60" aria-valuemin = "0" aria-valuemax = "100" style = "width:<%= event.percentage_raised_fund %>%;"> 
+                       </div>
+                    </div>
+                </div>
+             <% end %>
+         <div><%= link_to "More Events", events_path %></div>
+    </div>
+ </br>
+            <div class="map-container">
+                <div id="map" style="width: 100%; height: 500px"></div>
+            </div>
     </div>
 
     <!-- RIGHT SIDEBAR -->
-    <div class="col-md-4">
+    <div class="col-md-6" center>
+
         <!-- COMPANY STATISTICS -->
-        <div id="sharing-stats">
-            <p><%= Pledge.count %> pledges to date.</p>
+           
+        
             <hr>
-            <p>$<%= Pledge.distributed_to_date %> raised for charity.</p>
-        </div>
-
-        <!-- CHARITIES RECEIVING THE MOST FUNDING -->
-        <h3>Top Pledged Charities:</h3>
-        <% Charity.five_most_pledged_charities.each do |charity| %>
-            <div class="list-group-item-heading"><%= link_to charity.name, charity_path(charity) %></div>
-        <% end %>
-
-        <!-- NEW EVENT OR USER CALL TO ACTION BUTTON -->
+           <!-- NEW EVENT OR USER CALL TO ACTION BUTTON -->
         <% if !current_user %>
             <%= link_to new_user_registration_path do %>
                 <h3><button class="btn btn-success">CREATE EVENT</button></h3>
@@ -34,36 +50,32 @@
                 <h3><button class="btn btn-success">CREATE EVENT</button></h3>
             <% end %>
         <% end %>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6 vert-scroll-div">
-        <h3>Upcoming Events Near You:</h3>
-        <!-- MAIN CONTENT AREA UPCOMING EVENTS -->
-        <% Event.upcoming_events(limit: 7).each do |event| %>
-            <div id="bottom-left-content">
-                <h4><%= link_to event.title, event_path(event) %></h4>
-                <ul>
-                    <li>Donations to date: $<%= event.total_raised_to_date.to_i %></li>
-                    <li>Left to reach goal: $<%= event.amt_short_of_goal.to_i %></li>
-                </ul>
+     <div id="sharing-stats">
+      <div class='info_box_sm'>
+            <h4> Together we raised: $<%= Pledge.distributed_to_date %></h4>
+            <h4> Total: <%= Pledge.count %> supports so far </h4>
             </div>
+         <h3> Supported Causes </h3>
+            <div id="cause_chart">
+                <svg id="donut" width="500" height ="500">
+                    <g id="canvas">
+                        <g id="art" />
+                        <g id="labels" />
+                    </g>
+                </svg>
+          </div>
+
+        <h3>Top Pledged Charities:</h3>
+        <% Charity.five_most_pledged_charities.each do |charity| %>
+            <div class="list-group-item-heading"><%= link_to charity.name, charity_path(charity) %></div>
         <% end %>
-        <div><%= link_to "More Events", events_path %></div>
-    </div>
-    <div class="col-md-3">
-        <!-- DYNAMIC LIST OF EVENTS BASED ON USER INTERESTS -->
-        <% if current_user %>
-            <h3>Based on your interests:</h3>
-            <% current_user.events_to_checkout.each do |event| %>
-                <%= link_to event_path(event) do %>
-                    <div class="list-group-item-heading"><%= event.title %></div>
-                <% end %>
-            <% end %>
-        <% end %>
-    </div>
-    <div class="col-md-2">
-    <%= render "twitter" %>
-    </div>
+        </div>
+          <div class="col-md-2">
+          <%= render "twitter" %>
+        </div>
+
+
 </div>
+
+</body>
 

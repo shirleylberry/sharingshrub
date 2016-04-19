@@ -33,5 +33,18 @@ class Pledge < ActiveRecord::Base
     joins(:charities).where(charities:{id: charity.id}).sum(:amount)
   end
 
+  #renders JSON
+  def self.pledged_amount_by_cause
+    data = Array.new
+     Cause.all.each_with_index do |cause, i| 
+      if self.amount_by(cause) != 0
+        data[i] = Hash.new 
+        data[i][:name] = cause.name
+        data[i][:amount] = self.amount_by(cause)
+      end
+    end 
+    data.compact
+  end
+
 end
 

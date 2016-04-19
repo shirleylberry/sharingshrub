@@ -33,6 +33,7 @@
     float: left;
     height: 50px;
     padding: 5px 5px;
+    font-family: 'Poppins', sans-serif
     font-size: 18px;
     line-height: 20px;
 }
@@ -71,6 +72,13 @@
     margin-top: .5em;
     font-family: 'Poppins', sans-serif;
 }
+
+.info_box_sm h4{
+     color: #805B69; 
+     font-weight: bold;
+     
+}
+
 
 .donation_box {
     padding: 20px;

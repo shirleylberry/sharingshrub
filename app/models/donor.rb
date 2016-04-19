@@ -41,11 +41,14 @@ class Donor < ActiveRecord::Base
   def pledged_amount_by_cause
     data = Array.new
      Cause.all.each_with_index do |cause, i| 
+      if self.events_by(cause).sum(:amount) != 0 
       data[i] = Hash.new 
-      data[i][:name] = cause.name
+      data[i][:name] = cause.name 
       data[i][:amount] = self.events_by(cause).sum(:amount)
+      end 
+
     end
-    data
+    data.compact
   end
 
   def total_pledged

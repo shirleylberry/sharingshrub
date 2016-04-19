@@ -19,6 +19,10 @@ class CausesController < ApplicationController
   @causes = Cause.all
  end
 
+ def pie_chart
+  data = Pledge.pledged_amount_by_cause
+  render json: data 
+ end 
 
  private
 

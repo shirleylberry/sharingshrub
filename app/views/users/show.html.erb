@@ -1,13 +1,22 @@
-<H2>Hi! <%= @user.username %>,</H2> 
-<h4> Here’s to a joyful present and a well-remembered past! </H4>
+<div class="col-md-10" id = "greetings">
+<h3>Hi, <%= @user.username.capitalize %>!</h3> 
+</div>
+
+<div class="col-md-2" id = "search">
+ <%= link_to events_path do %>
+ <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>
+  Search Events</button><% end %>
+</div>
+
 
 <div class="row">
     <div class="col-md-6">
+
         <div class="info_box" >
          <h3> Supported Causes </h3>
              <div class="info_box_sm" >
             <div id="cause_chart">
-                <svg id="donut" width="300" height ="300">
+                <svg id="donut" width="500" height ="500">
                     <g id="canvas">
                         <g id="art" />
                         <g id="labels" />

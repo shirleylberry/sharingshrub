@@ -31,7 +31,7 @@ $(function(){
   })
 })
 </script>
-
+<div class="col-md-7">
 <form action = '/events/search', method: 'GET', id="events_search" >
 <p> Search events by date: </p>
 From: <input id = 'from', name = 'event_start'> To: <input id = 'to', name = 'event_end' >
@@ -39,6 +39,21 @@ From: <input id = 'from', name = 'event_start'> To: <input id = 'to', name = 'ev
 </form>
 
 <div id='result'></div>
+</div>
+<div class="col-md-5">
+<div id='suggestion'>
+   <!-- DYNAMIC LIST OF EVENTS BASED ON USER INTERESTS -->
+        <% if current_user %>
+            <h3>Recommended For You</h3>
+            <% current_user.events_to_checkout.each do |event| %>
+                <%= link_to event_path(event) do %>
+                    <div class="list-group-item-heading"><%= event.title %>   ♥  <%= event.causes.pluck(:name).join %>    ♥  
+                    </div>
+                <% end %>
+            <% end %>
+        <% end %>
+  </div>
+</div>
 
 
   

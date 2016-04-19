@@ -1,3 +1,12 @@
+.main_logo { 
+  background-image: url('sharingshrub.jpg');
+  background-position: center;
+  background-size: 1200px 700px;
+  width: 100%;
+  height: 700px;
+
+}
+
 .col-md-8 {
     border-right: 1px solid #d3d3d3;
 }
@@ -15,16 +24,17 @@
 }
 
 #sharing-stats p {
-    text-align: left;
+    text-align: center;
     font-size: 1.5em;
     font-weight: bold;
-    color: #5CB85C;
+    color: #3e3636;
     margin: 0;
 }
 
 #bottom-left-content {
     text-align: left;
     padding-left: 0;
+    color: grey;
 }
 
 .vert-scroll-div {
@@ -32,7 +42,8 @@
    border: 1px solid #d3d3d3;
    border-radius: 30px;
    overflow: scroll;
-   height: 475px;
+   height: 550px;
+   padding: 40px;
 
 }
 
@@ -41,4 +52,14 @@
     border: 3px solid #d3d3d3;
     border-radius: 10px;
 }
+
+.progress {
+  height: 10px;
+  width: 70% ;
+}
+
+ #cause_chart"{
+    height: 150px;
+
+ }
 

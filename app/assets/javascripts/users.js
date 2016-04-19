@@ -3,7 +3,7 @@ $('.users.show').ready(function(){
 
 $.ajax({ 
   method: "GET",
-  url: "/users/" + user_id + "/cause_chart"
+  url: "/causes/" + user_id + "/pie_chart"
 
 }).success(function(data){
 
@@ -28,14 +28,14 @@ jhw_pie.value(function (d, i) {
 // Set the size of our SVG element
 svg.attr({
     height: 500,
-    width: 500
+    width: 700
 });
 
 // Store our chart dimensions
 cDim = {
     height: $("#donut").outerHeight(),
     width: $("#donut").outerWidth(),
-    labelRadius: 30
+    labelRadius: 130
 }
 
 // This translate property moves the origin of the group's coordinate
@@ -49,8 +49,8 @@ pied_data = jhw_pie(data);
 // information for each wedge based on the data set. This is 
 // used in the "d" attribute.
 pied_arc = d3.svg.arc()
-    .innerRadius(50)
-    .outerRadius(100);
+    .innerRadius(160)
+    .outerRadius(180);
 
 // This is an ordinal scale that returns 10 predefined colors.
 // It is part of d3 core.
@@ -72,7 +72,7 @@ labelGroups = enteringLabels.append("g").attr("class", "label");
 labelGroups.append("circle").attr({
     x: 0,
     y: 0,
-    r: 2,
+    r: 1,
     fill: "#000",
     transform: function (d, i) {
         centroid = pied_arc.centroid(d);
@@ -92,7 +92,7 @@ textLines = labelGroups.append("line").attr({
     },
     x2: function (d, i) {
         centroid = pied_arc.centroid(d);
-        midAngle = Math.atan2(centroid[1], centroid[0]);
+        midAngle = Math.atan2(centroid[0], centroid[0]);
         x = Math.cos(midAngle) * cDim.labelRadius;
         return x;
     },
@@ -122,7 +122,7 @@ textLabels = labelGroups.append("text").attr({
     },
         'text-anchor': function (d, i) {
         centroid = pied_arc.centroid(d);
-        midAngle = Math.atan2(centroid[1], centroid[0]);
+        midAngle = Math.atan2(centroid[0], centroid[1]);
         x = Math.cos(midAngle) * cDim.labelRadius;
         return (x > 0) ? "start" : "end";
     },
@@ -131,7 +131,7 @@ textLabels = labelGroups.append("text").attr({
     return d.data.name
 });
 
-alpha = 0.5;
+alpha = 1;
 spacing = 12;
 
 function relax() {
@@ -174,7 +174,7 @@ function relax() {
             labelForLine = d3.select(labelElements[i]);
             return labelForLine.attr("y");
         });
-        setTimeout(relax,20)
+        setTimeout(relax,1)
     }
 }
 
