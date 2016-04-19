@@ -17,3 +17,12 @@ desc 'Get charities data from web scraper and create charities'
     client = Adapters::CharityClient.new
     client.create_charities(charities)
   end
+
+desc 'delete charities with duplicate names'
+  task :delete_duplicate_charities => :environment do
+    grouped = Charity.all.group_by{|charity| charity.name}
+    grouped.values.each do |groups|
+      first_one = groups.shift
+      groups.each{|duplicate| duplicate.destroy }
+    end
+  end
