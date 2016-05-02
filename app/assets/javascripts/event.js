@@ -44,19 +44,25 @@ $(".events.new, .events.create").ready(function(){
 
 //EVENT ANALYTIC CHARTS
 $('.events.show').ready(function(){
-
-     var lat = parseInt($('.address').attr('lat'));
-     var long = parseInt($('.address').attr('long'));
-     var myLatlng = new google.maps.LatLng( lat, long);
-     var mapOptions = {
-         zoom: 8,
-         center: myLatlng
-        }          
-     var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-     var marker = new google.maps.Marker({
-          position: myLatlng,
-      });
-    marker.setMap(map);
+  var map;
+  var lat = parseInt($('.address').attr('lat'));
+  var long = parseInt($('.address').attr('long'));
+  var address = $('#event-address').text()        
+  $.ajax({
+    method: "GET",
+    url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=AIzaSyA7qy8qU7ERyigYI6Ebz3WwFR_4cGuS4zU"
+  }).then(function(data){
+    var position = data.results[0].geometry.location
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: position,
+      zoom: 15
+    });
+    var marker = new google.maps.Marker({
+        position: position,
+        map: map
+    });
+    // debugger;
+  })
 
 
 

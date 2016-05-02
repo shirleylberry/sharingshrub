@@ -8,7 +8,7 @@
               <%= event.description %>
           <h4> Fighting for</h4>
                <ul>
-               <% event.causes.each do |cause| %>
+               <% event.causes.uniq.each do |cause| %>
                  <%= link_to cause_path(cause) do %>
                         <li><%= cause.name %></li>
                       <% end %>
@@ -28,7 +28,7 @@
           <%= event.event_end.strftime('%A, %B %d at %I:%M%p') %></p>
 
         <h4>Where</h4>
-         <p><%= event.address %></p> 
+         <p id="event-address"><%= event.address %></p> 
            
         <h4> Hosted By </h4>
          <p><%= event.host.name %></p>
